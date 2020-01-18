@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery Crash Course | Selectors</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        body{
+            font-size: 17px;
+            font-family: Arial;
+
+            background-color: #f4f4f4;
+            line-height: 1.5em;
+        }
+        header{
+            background-color: #333;
+            color: #fff;
+
+            padding: 20px;
+            text-align: center;
+
+            border-bottom: 4px #000 solid;
+            margin-bottom: 10px;
+        }
+        #container{
+            width: 90%;
+            margin: auto;
+
+            padding: 10px;
+        }
+        .myClass{
+            color: blue;
+            background: black;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>jQuery Crash Course</h1>
+    </header>
+    <div id="container">
+        <button id="btn1">Button 1</button>
+        <p class="para1">This is a paragraph.</p>
+        <p class="para2">This is another paragraph.</p>
+        <div id="myDiv"></div>
+    </div>
+    <input type="text" name="newItem" id="newItem">
+    <ul id="users"></ul>
+    <ul id="list">
+        <li>List Item 1</li>
+        <li>List Item 2</li>
+        <li>List Item 3</li>
+        <li>List Item 4</li>
+        <li>List Item 5</li>
+        <li>List Item 6</li>
+        <li>List Item 7</li>
+        <li>List Item 8</li>
+    </ul>
+    <a href="http://google.com">Google</a>
+</body>
+</html>
+<script>
+$(document).ready(function(DOCUMENT_READY_EVENT){
+    // $("p.para1").css("color", "red");
+    // $("p.para1").css({
+    //     "color": "red",
+    //     "background-color": "#ccc"
+    // });
+
+    // // $("p.para2").addClass("myClass");
+    // // $("p.para2").removeClass("myClass");
+
+    // $("#btn1").click(function(event){
+    //     $("p.para2").toggleClass("myClass");
+    // });
+
+    // // $("#myDiv").text("Hello World.");
+    // $("#myDiv").html("<h3><strong>Hello World</strong></h3>");
+    // alert($("#myDiv").text());
+    
+    // for(let i = eval($("ul li:last-child").text().split(" ")[$("ul li:last-child").text().split(" ").length - 1]); i <= 10; i++){
+    //     $("ul").append(`<li>List Item ${i}`);
+    // }
+    
+    // console.log( eval($("ul li:first-child").text().split(" ")[$("ul li:first-child").text().split(" ").length - 1]));
+    
+    // let tracker = eval($("ul li:first-child").text().split(" ")[$("ul li:first-child").text().split(" ").length - 1]-1);
+    // let numbersArray = new Array();
+    // for(let i = tracker; i >= -10; i--){
+    //     numbersArray.push(i);
+    // };
+    // numbersArray.map((value) => $("ul").prepend(`<li>Liste Item ${value}`));
+
+    // $("ul").append("<li>Append List Item<li>");
+    // $("ul").prepend("<li>Prepend List Item</li>");
+
+    // document.querySelector("ul").removeChild(document.querySelector("ul").lastChild);
+
+    // $(".para1").appendTo(".para2");
+    // $(".para1").prependTo(".para2");
+
+    // $("ul").before("<h4>Hello</h4>");
+    // $("ul").after("<h4>World</h4>");
+
+    // $("ul").empty(); // empties the content out of it, it's still there.
+    // $("ul").detach(); // takes it out of the DOM
+
+    // $("a").attr("target", "_blank");
+    // alert($("a").attr("target"));
+    // $("a").removeAttr("target");
+
+    // console.log($("p")); == > ALL PARAGRAPHS
+
+    // $("p").wrapAll("<h1>");
+
+    $("#newItem").keyup(function(event){
+        var code = event.which;
+        if(code === 13){
+            event.preventDefault();
+            $("ul").append(`<li>${event.target.value}</li>`)
+        }
+    })
+
+    // var myArr = ["Brad", "Kelley", "Nate", "Jose"];
+    // $.each(myArr, function(valueIndex, value){
+    //     $("ul#users").append(`<li>${value}</li>`);
+    // });
+
+    let newArray = $("ul#list li").toArray();
+    // newArray = newArray.map((li_item) => li_item.textContent);
+    // console.log(newArray);
+
+    $.each(newArray, function(valueIndex, value){
+        newArray[valueIndex] = value.textContent;
+    });
+    console.log(newArray);
+});
+
+</script>
