@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jQuery Beginning</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+  <ul id="list">
+    <li>List Item 1</li>
+    <li>List Item 2</li>
+    <li>List Item 3</li>
+    <li>List Item 4</li>
+    <li>List Item 5</li>
+    <li>List Item 6</li>
+    <li>List Item 7</li>
+    <li>List Item 8</li>
+    <li>List Item 9</li>
+    <li>List Item 10</li>
+  </ul>
+</body>
+</html>
+<script>
+document.querySelectorAll("ul#list li").forEach((listItem_DOMELEMENT, listItem_DOMELEMENT_INDEX) => {
+  let linkTextContent = listItem_DOMELEMENT.textContent;
+
+  let newListItem = document.createElement("li");
+
+  let link = document.createElement("a");
+  link.setAttribute("href", "https://www.google.com");
+  link.setAttribute("target", "_blank");
+
+
+  newListItem.style.listStyleType = "upper-roman";
+
+  link.textContent = linkTextContent;
+
+  newListItem.appendChild(link);
+
+  document.querySelector("ul#list").replaceChild(newListItem, listItem_DOMELEMENT);
+})
+</script>

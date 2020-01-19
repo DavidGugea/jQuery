@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+document.addEventListener("DOMContentLoaded", (event) => {
+  let ulElement = document.createElement("ul");
+  ulElement.setAttribute("id", "list");
+
+  let link_hrefs = [
+    "https://www.google.com",
+    "https://www.facebook.com",
+    "https://www.youtube.com",
+    "https://www.linkedin.com",
+    "https://www.github.com",
+  ]
+  for(let i = 0 ; i < 5; i++){
+    let liItem = document.createElement("li");
+    liItem.textContent = link_hrefs[i];
+
+    ulElement.appendChild(liItem);
+  };
+
+  document.querySelector("body").appendChild(ulElement);
+});
+
+document.addEventListener("DOMContentLoaded", (event) => {
+  document.querySelectorAll("ul#list li").forEach((li_item, li_item_index) => {
+    let link_href = li_item.textContent;
+    li_item.innerHTML = ""; // empty element out.
+
+    let newListItem = document.createElement("li");
+
+    let linkElement = document.createElement("a");
+    linkElement.setAttribute("target", "_blank");
+    linkElement.setAttribute("href", link_href);
+
+    linkElement.textContent = link_href.match(/(?<=https:\/\/w{3}\.)\w*(?=\.com)/g)[0].slice(0, 1).toUpperCase() + link_href.match(/(?<=https:\/\/w{3}\.)\w*(?=\.com)/g)[0].slice(1, link_href.match(/(?<=https:\/\/w{3}\.)\w*(?=\.com)/g)[0].length).toLowerCase();
+
+    newListItem.appendChild(linkElement);
+    document.querySelector("ul#list").replaceChild(newListItem, li_item);
+  })
+});
+</script>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+document.addEventListener("DOMContentLoaded", function(event){
+  let ul_item = document.createElement("ul");
+  ul_item.setAttribute("id", "list");
+
+  let links_href = [
+    "https://www.google.com",
+    "https://www.facebook.com",
+    "https://www.github.com",
+    "https://www.linkedin.com",
+    "https://www.youtube.com"
+  ]
+
+  for(let i = 0 ; i < 5; i++){
+    let li_item = document.createElement("li");
+    li_item.textContent = links_href[i];
+
+    ul_item.appendChild(li_item);
+  };
+
+  document.querySelector("body").appendChild(ul_item);
+});
+$(document).ready(function(DOCUMENT_READY_EVENT){
+  $("ul#list li").wrapInner(function(){
+    return `<a href=${this.textContent}>${this.textContent.match(/(?<=https:\/\/w{3})\w*(?=\.(com | ro | uk | tin | app))/g)[0].slice(0, 1).toUppercase() + this.textContent.match(/(?<=https:\/\/w{3})\w*(?=\.(com | ro | uk | tin | app))/g)[0].slice(1, this.textContent.match(/(?<=https:\/\/w{3})\w*(?=\.(com | ro | uk | tin | app))/g)[0])}</a>`
+  })
+})
+</script>
