@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | DOM Manipulation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+    <style>
+        *{
+            background-color: black;
+            color: #f4f4f4;
+
+            font-family: Verdana;
+        }
+        a{
+            background-color: #222;
+            color: #f4f4f4;
+
+            font-family:'Courier New', Courier, monospace;
+
+            text-decoration: none;
+            text-transform: none;
+        }
+
+        main{
+            background-color: red;
+            color: white;
+
+            width: 300px;
+            height: 300px;
+        }
+        button{
+            background-color: rgb(252, 88, 88);
+            color:rgb(74, 0, 212);
+
+            padding: 10px;
+            text-align: center;
+
+            border: 0;  
+
+            font-family: Verdana;
+        }
+        button:hover{
+            background-color: rgb(74, 0, 212);
+            color: rgb(252, 88, 88);
+
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+    <button id="fadeIn">Fade In</button>
+    <button id="fadeOut">Fade Out</button>
+    <button id="fadeToggle">Fade Toggle</button>
+
+    <hr>
+
+    <button id="slideDown">Slide Down</button>
+    <button id="slideUp">Slide Up</button>
+    <button id="slideToggle">Slide Toggle</button>
+
+    <hr>
+
+    <button id="stop">Stop</button>
+
+    <hr>
+
+    <button id="hide">Hide</button>
+    <button id="show">Show</button>
+
+    <hr>
+
+    <main></main>
+</body>
+</html>
+<script>
+function spaceUp(){
+    for(let i = 0 ; i < 3 ; i++){
+        console.log(" ");
+    };
+};
+
+'use strict';
+
+$(document).ready(() => {
+    // Fade effects
+    $("button#fadeIn").click(function(event){
+        $("main").fadeIn();
+    });
+    $("button#fadeOut").click(function(event){
+        $("main").fadeOut();
+    });
+    $("button#fadeToggle").click(function(event){
+        $("main").fadeToggle();
+    });
+
+    // Slide effects 
+    $("button#slideDown").click(function(event){
+        $("main").slideDown();
+    });
+    $("button#slideUp").click(function(event){
+        $("main").slideUp();
+    });
+    $("button#slideToggle").click(function(event){
+        $("main").slideToggle();
+    });
+
+    // Stop effect
+    $("button#stop").click(function(event){
+        $("main").stop();
+    });
+
+    // Hide and Show effects
+    $("button#hide").click(function(event){
+        $("main").hide();
+    });
+    $("button#show").click(function(event){
+        $("main").show();
+    })
+})
+</script>
