@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | DOM Manipulation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+    <style>
+        *{
+            background-color: black;
+            color: #f4f4f4;
+
+            font-family: Verdana;
+        }
+        a{
+            background-color: #222;
+            color: #f4f4f4;
+
+            font-family:'Courier New', Courier, monospace;
+
+            text-decoration: none;
+            text-transform: none;
+        }
+
+        main{
+            background-color: red;
+            color: white;
+
+            width: 300px;
+            height: 300px;
+        }
+        button{
+            background-color: #f4f4f4;
+            color: #333;
+
+            padding: 10px;
+            text-align: center;
+
+            border: 0;  
+
+            font-family: Verdana;
+        }
+        button:hover{
+            background-color: #333;
+            color: #f4f4f4;
+
+            border-radius: 30px;
+            
+            transition: all 2500ms;
+        }
+        p{
+            background-color: #333;
+            color: #f4f4f4;
+
+            font-family: monospace;
+            padding: 20px;
+
+            text-align: center;
+        
+            width: 200px;
+        }
+        p:hover{
+            background-color: #f4f4f4;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn_click">Button click</button>
+    <button id="btn_dblclick">Button double click</button>
+
+    <hr>
+
+    <button id="btn_focusIn">Button focus in</button>
+    <button id="btn_focusOut">Button focus out</button>
+
+    <hr>
+
+    <button id="btn_hover">Button hover</button>
+
+    <hr>
+
+    <button id="btn_mouseDown">Button mouse down</button>
+    <button id="btn_mouseUp">Button mouse up</button>
+    
+    <hr>
+
+    <button id="btn_mouseEnter">Button mouse enter</button>
+    <button id="btn_mouseOut">Button mouse out</button>
+    <button id="btn_mouseLeave">Button mouse leave</button>
+
+    <hr>
+
+    <button id="btn_mouseMove">Button mouse move</button>
+    <button id="btn_mouseOver">Button mouse over</button>
+
+    <hr>
+    
+    <p id="result"></p>
+</body>
+</html>
+<script>
+function spaceUp(){
+    for(let i = 0 ; i < 3 ; i++){
+        console.log(" ");
+    };
+};
+
+$(document).ready((DOCUMENT_READY_EVENT) => {
+    $("button#btn_click").click((event) => {
+        $("p#result").text("Button clicked.");
+    });
+    $("button#btn_dblclick").click((event) => {
+        $("p#result").text("Button double clicked.");
+    });
+    $("button#btn_focusIn").focusin((event) => {
+        $("p#result").text("Button focused in.");
+    });
+    $("button#btn_focusOut").focusout((event) => {
+        $("p#result").text("Button focus out.");
+    });
+    $("button#btn_hover").hover((event) => {
+        $("p#result").text("Button hover.");
+    });
+    $("button#btn_mouseDown").mousedown((event) => {
+        $("p#result").text("Button mouse down.");
+    });
+    $("button#mouseUp").mouseup((event) => {
+        $("p#result").text("Button mouse up.");
+    });
+    $("button#btn_mouseEnter").mouseenter((event) => {
+        $("p#result").text("Button mouse enter.");
+    });
+    $("button#btn_mouseOut").mouseout((event) => {
+        $("p#result").text("Button mouse out.");
+    });
+    $("button#btn_mouseLeave").mouseleave((event) => {
+        $("p#result").text("Button mouse leave.");
+    });
+    $("button#btn_mouseMove").mousemove((event) => {
+        $("p#result").text("Button mouse move.");
+    });
+    $("button#btn_mouseOver").mouseover((event) => {
+        $("p#result").text("Button mouse over.");
+    });
+})
+</script>
