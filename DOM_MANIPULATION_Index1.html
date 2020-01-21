@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jQuery | DOM Manipulation</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+</head>
+<body>
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Age</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>David-Ioannis Gugea</td>
+        <td>16</td>
+      </tr>
+      <tr>
+        <td>Bogdana-Marina Gugea</td>
+        <td>40</td>
+      </tr>
+      <tr>
+        <td>Petre-Cristian Gugea</td>
+        <td>45</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <ul class="example">
+    <li class="odd">David-Ioannis Gugea , 16</li>
+    <li>Bogdana-Marina Gugea, 40</li>
+    <li class="odd">Petre-Cristian Gugea, 45</li>
+  </ul>
+
+  <hr>
+
+  <form action="" id="mainForm">
+    <input type="text" name="name" id="name" placeholder="Name"><br><br>
+    <input type="email" name="email" id="email" placeholder="Email"><br><br>
+    <input type="text" name="max" id="max" placeholder="Max"><br><br>
+    <textarea name="details" id="details" placeholder="Details" cols="30" rows="10"></textarea><br>
+  </form>
+</body>
+</html>
+<script>
+function spaceUp(){
+  for(let i = 0 ; i < 3 ; i++){
+    console.log(" ");
+  }
+};
+$(document).ready(function(DOCUMENT_EVENT_READY){
+  let inputElements = $("input"); // alle <input>-Elemente
+
+  console.log("let inputElements = $('input'): ");
+  console.log(inputElements);
+  spaceUp();
+
+  let max = $("#max"); // Element mit ID "max"
+  console.log("let max = $('max'): ");
+  console.log(max);
+  spaceUp();
+
+  let oddElements = $(".odd"); // Elemente mit Klasse "odd"
+  console.log("let oddElements = $('.odd'): ");
+  console.log(oddElements);
+  spaceUp();
+
+  let elements = $("td, th"); // alle <td>- und <th>-Elemente
+  console.log("let elements = $('td, th'): ");
+  console.log(elements);
+  spaceUp();
+
+  let inputMax = $("input[name='max']"); // <input>-Elemente, deren name-Attribute den Wert "max" hat
+  console.log("let inputMax = $('input[name='max']')");
+  console.log(inputMax);
+  spaceUp();
+
+  let oddRows = $("tr:odd"); // alle "ungeraden" <tr>-Elemente
+  console.log("let oddRows = $('tr:odd')");
+  console.log(oddRows);
+  spaceUp();
+
+  let evenRows = $("tr:even"); // alle "geraden" <tr>-Elemente
+  console.log("let evenRows = $('tr:even')");
+  console.log(evenRows);
+  spaceUp();
+
+  let listItemsAtIndex = $('li:eq(2)'); // alle <li>-Elemente an Index 2
+  console.log("let listItemsAtIndex = $('li:eq(2)')");
+  console.log(listItemsAtIndex);
+  spaceUp();
+
+  let all0thers = $(":not(li)"); // alle Nicht-<li>-Elemente
+  console.log("let all0thers = $(':not(li)')");
+  console.log(all0thers);
+  spaceUp();
+
+  let notExample = $(":not(.example)"); // alle Elemente ohne CSS-Klasse "example"
+  console.log("let notExamples = $(':not(.example)')");
+  console.log(notExample);
+  spaceUp();
+})
+</script>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | DOM Manipulation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+    <style>
+        *{
+            background-color: black;
+            color: #f4f4f4;
+
+            font-family: Verdana;
+        }
+        a{
+            background-color: #222;
+            color: #f4f4f4;
+
+            font-family:'Courier New', Courier, monospace;
+
+            text-decoration: none;
+            text-transform: none;
+        }
+    </style>
+</head>
+<body>
+    <main></main>
+</body>
+</html>
+<script>
+function spaceUp(){
+    for(let i = 0 ; i < 3 ; i++){
+        console.log(" ");
+    };
+};
+
+$(document).ready(() => {
+    $("main").animate(
+        {
+            opacity: 0.75
+        },
+        "fast",
+        "swing",
+        () => {
+            $("body").append("<p>Animation done.</p>");
+        }
+    );
+});
+</script>

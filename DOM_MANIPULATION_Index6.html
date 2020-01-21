@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | DOM Manipulation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+    <style>
+        *{
+            background-color: black;
+            color: white;
+
+            padding: 5px;
+            font-family: Verdana;
+        }
+        p{
+            border: rgb(77, 157, 194) 5px solid;
+        }
+        div{
+            border: white 5px solid;
+            padding: 30px;
+        }
+        aside.asideContent{
+            border: pink 5px solid;
+            padding: 50px;
+        }
+    </style>
+</head>
+<body>
+    <section class="example"></section>
+    <p class="example">Main Paragraph</p>
+    <aside class="asideContent">
+        <p class="example">First paragraph</p>
+        <p class="example">Second paragraph</p>
+    </aside>
+</body>
+</html>
+<script>
+// $("p.example").wrap("<div>Wrap Element</div>");
+//$("p.example").wrapInner("<div>Wrap Element</div>");
+// $("p.example").wrap("<div><aside></aside></div>");
+$("aside.asideContent").wrapInner("<div></div>");
+</script>

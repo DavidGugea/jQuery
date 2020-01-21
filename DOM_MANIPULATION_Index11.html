@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | DOM Manipulation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+    <style>
+        *{
+            background-color: black;
+            color: #f4f4f4;
+
+            font-family: Verdana;
+        }
+        a{
+            background-color: #222;
+            color: #f4f4f4;
+
+            font-family:'Courier New', Courier, monospace;
+
+            text-decoration: none;
+            text-transform: none;
+        }
+    </style>
+</head>
+<body>
+    <ul id="one" class="level-1">
+        <li class="item-i">I</li>
+        <li id="ii" class="item-ii">II
+          <ul class="level-2">
+            <li class="item-a">A</li>
+            <li class="item-b">B
+              <ul class="level-3">
+                <li class="item-1">1</li>
+                <li class="item-2">2</li>
+                <li class="item-3">3</li>
+                <li class="item-4">4</li>
+                <li class="item-5">5</li>
+                <li class="item-6">6</li>
+                <li class="item-7">7</li>
+                <li class="item-8">8</li>
+                <li class="item-9">9</li>
+                <li class="item-10">10</li>
+              </ul>
+            </li>
+            <li class="item-c">C</li>
+          </ul>
+        </li>
+        <li class="item-iii">III</li>
+    </ul>
+</body>
+</html>
+<script>
+function spaceUp(){
+    for(let i = 0 ; i < 3 ; i++){
+        console.log(" ");
+    };
+};
+
+/*
+
+// PARENT //
+
+console.log("Parent: ");
+console.log($("li.item-1").parent());
+
+spaceUp();
+
+console.log("Parents: ");
+console.log($("li.item-1").parents());
+
+spaceUp();
+
+console.log("Parents until body: ");
+console.log($("li.item-1").parentsUntil("body"));
+
+spaceUp();
+*/
+/* 
+
+// SIBLINGS //
+
+console.log("Previous sibling: ");
+console.log($("li.item-3").prev());
+
+spaceUp();
+
+console.log("Previous siblings: ");
+console.log($("li.item-3").prevAll());
+
+spaceUp();
+
+console.log("Previous siblings until: ");
+console.log($("li.item-8").prevUntil("li.item-3"));
+
+spaceUp();
+
+console.log("Siblings: ");
+console.log($("li.item-8").siblings());
+
+spaceUp();
+
+*/
+
+/* 
+
+// NEXT //
+
+console.log("Next sibling: ");
+console.log($("li.item-a").next());
+
+spaceUp();
+
+console.log("Next sibling ul: ");
+console.log($("li.item-i").next("li"));
+
+spaceUp();
+
+console.log("Next siblings: ");
+console.log($("li.item-1").nextAll());
+
+spaceUp();
+
+console.log("Next siblings until: ");
+console.log($("li.item-1").nextUntil("li.item-3"));
+
+spaceUp();
+*/
+</script>

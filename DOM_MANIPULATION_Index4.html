@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | DOM Manipulation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+</head>
+<body>
+    <main id="main"></main>
+    <div class="example"></div>
+</body>
+</html>
+<script>
+function spaceUp(){
+    for(let i = 0 ; i < 3 ; i++){
+        console.log(" ");
+    };
+};
+
+$("#main").html("<div>Neuer Inhalt</div>");
+let htmlContent = $("#main").html();
+console.log("HTML CONTENT : ");
+console.log(htmlContent);
+spaceUp();
+
+$("#main").text("Neuer Textinhalt");
+let textContent = $("#main").text();
+console.log("TEXT CONTENT : ");
+console.log(textContent);
+spaceUp();
+
+$("div.example").append("<p>Beispiel 1</p>"); 
+$("div.example").prepend("<p>Beispiel 2</p>");
+
+$("div.example").after("<p>Beispiel AFTER</p>");
+$("div.example").before("<p>Beispiel BEFORE</p>");
+</script>

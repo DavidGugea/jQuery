@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | DOM Manipulation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+    <style>
+        *{
+            background-color: black;
+            color: #f4f4f4;
+
+            font-family: Verdana;
+        }
+        a{
+            background-color: #222;
+            color: #f4f4f4;
+
+            font-family:'Courier New', Courier, monospace;
+
+            text-decoration: none;
+            text-transform: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <p>Here is my header</p>
+    </header>
+    <main>
+        <span>This is not a paragraph</span>
+    </main>
+    <a href="https://www.youtube.com">Youtube</a>
+    <aside id="aside">
+        <p>This is a paragraph</p>
+    </aside>
+    <section id="main">
+        <p>This is another paragraph</p>
+    </section>
+    <ul>
+        <li>List Item 1</li>
+        <li>List Item 2</li>
+        <li><span class="SpanInsideListItem">List Item 3</span></li>
+        <li>List Item 4</li>
+        <li>List Item 5</li>
+    </ul>
+    <div class="example">
+        <a href="https://www.google.com">Hello World</a>
+    </div>
+    <a href="https://www.google.com">Google</a>
+</body>
+</html>
+<script>
+function spaceUp(){
+    for(let i = 0 ; i < 3 ; i++){
+        console.log(" ");
+    };
+};
+
+let listItem = $("ul").children();
+console.log("List items: ");
+console.log(listItem);
+
+spaceUp();
+
+let closestLink = $("ul").closest("a");
+console.log("Closest link: ");
+console.log(closestLink);
+
+spaceUp();
+
+let nextSibling = $("ul li:first-child").first().next();
+console.log("next sibling: ");
+console.log(nextSibling);
+
+spaceUp();
+
+let nextSiblingLink = $("ul").next("a");
+console.log("Next sibling link: ");
+console.log(nextSiblingLink);
+
+spaceUp();
+
+let nextSiblings = $("ul").nextAll();
+console.log("Next siblings: ");
+console.log(nextSiblings);
+
+spaceUp();
+
+let nextSiblingsUntil = $("div").nextUntil("a");
+console.log("Next siblings until: ");
+console.log(nextSiblingsUntil);
+
+spaceUp();
+
+let previousSibling = $("ul").prev();
+console.log("Previous sibling: ");
+console.log(previousSibling);
+
+spaceUp();
+
+let previousSiblings = $("ul").prevAll();
+console.log("Previous siblings: ");
+console.log(previousSiblings);
+
+spaceUp();
+
+let previousSiblingsUntil = $("div").prevUntil("a");
+console.log("Previous siblings until: ");
+console.log(previousSiblingsUntil);
+
+spaceUp();
+
+let siblings = $("div").siblings();
+console.log("Siblings: ");
+console.log(siblings);
+
+spaceUp();
+
+let parent = $("ul").parent();
+console.log("Parent: ");
+console.log(parent);
+
+spaceUp();
+
+let parents = $("span.SpanInsideListItem").parents();
+console.log("Parents: ");
+console.log(parents);
+
+spaceUp();
+
+let parentsUntil = $("span.SpanInsideListItem").parentsUntil("body");
+console.log("Parents until: ");
+console.log(parentsUntil);
+
+spaceUp();
+</script>
