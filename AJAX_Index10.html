@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | AJAX</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+    <style>
+        *{
+            background-color: black;
+            color: #f4f4f4;
+
+            font-family: Verdana;
+        }
+        a{
+            background-color: #222;
+            color: #f4f4f4;
+
+            font-family:'Courier New', Courier, monospace;
+
+            text-decoration: none;
+            text-transform: none;
+        }
+
+        main{
+            background-color: red;
+            color: white;
+
+            width: 300px;
+            height: 300px;
+        }
+        button{
+            background-color: #f4f4f4;
+            color: #333;
+
+            padding: 10px;
+            text-align: center;
+
+            border: 0;
+
+            font-family: Verdana;
+        }
+        button:hover{
+            background-color: #333;
+            color: #f4f4f4;
+
+            border-radius: 30px;
+
+            transition: all 2500ms;
+        }
+        p{
+            background-color: #333;
+            color: #f4f4f4;
+
+            font-family: monospace;
+            padding: 20px;
+
+            text-align: center;
+
+            width: 200px;
+        }
+        p:hover{
+            background-color: #f4f4f4;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+	<button id="sendRequest">Send Request</button>
+	<button id="getRequest">Get Request</button>
+
+	<hr>
+	
+	<p id="result"></p>
+</body>
+</html>
+<script>
+function spaceUp(){
+    for(let i = 0 ; i < 3 ; i++){
+        console.log(" ");
+    };
+};
+
+let newArtist = {
+    "name": "Deltron 3030",
+    "albums": [
+        {
+            "title": "Deltron 3030",
+            "year": 2000
+        },
+        {
+            "title": "Event 2",
+            "year": 2013
+        }
+    ]
+};
+
+class configRequest{
+	constructor(resultQuery){
+		this.resultQuery = resultQuery;
+	}
+	sendRequest(requestPath, requestObject = {}, requestHeaderObject = {}){
+		this.requestPath = requestPath;
+		this.requestObject = requestObject;
+		this.requestHeaderObject = requestHeaderObject;
+
+		var self = this;
+
+		fetch(this.requestPath, {
+			method : "post",
+			header : this.requestHeaderObject
+		}).then(function(response){
+			switch(self.resultQuery){
+				case "console" :
+					console.log(response);
+					break;
+				case undefined:
+				case false:
+				case null:
+					break;
+				default:
+					$(self.resultQuery).text(response);	
+					break;
+			}
+		})
+	}
+	getRequest(requestPath, requestHeaderObject){
+		this.requestPath = requestPath;
+		this.requestHeaderObject = requestHeaderObject;
+
+		var self = this;
+		
+		fetch(this.requestPath,
+		{
+			method : "get",
+			header : this.requestHeaderObject
+		})
+		.then(function(response){
+			return response.json();	
+		}).then(function(result){
+			switch(self.resultQuery){
+				case "console" :
+					console.log(result);
+					break;
+				case undefined:
+				case false:
+				case null:
+					break;
+				default:
+					$(self.resultQuery).text(Object.entries(result).reduce((accumulator , KVP, KVP_INDEX,original_KVP_Array) => (accumulator += `${KVP[0]} : ${KVP[1]} \n`, accumulator) ,new String()));
+					break;
+			}	
+		})
+	}
+}
+
+$("button#sendRequest").click(function(event){
+	let request = new configRequest("console");
+	request.sendRequest("AJAX_FILES/PostRequestFile.json", newArtist, {
+		"Content-Type" : "application/json",
+		"Accept" : "text/json"
+	})
+});
+$("button#getRequest").click(function(event){
+	let request = new configRequest("p#result");
+	request.getRequest("AJAX_FILES/user.json", {
+		"Content-Type" : "application/json",
+		"Accept" : "text/json"
+	});
+});
+</script>

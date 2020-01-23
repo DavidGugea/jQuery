@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>	
+	</head>
+	<body>
+		<button id="getXML">Get XML</button>
+		<button id="getJSON">Get JSON</button>
+		
+		<hr>
+
+		<p id="result"></p>
+	</body>
+</html>
+<script>
+'use strict'
+$(document).ready((DOM_READY_EVENT) => {
+	$("button#getXML").click(function(event){
+		$.get({
+			url : "AJAX_FILES/person.xml",
+			dataType : "xml"
+		}).done((XHR_REQUEST_DATA) => {
+			console.log(XHR_REQUEST_DATA);
+			let xmlSerializer = new XMLSerializer();
+			let XHR_REQUEST_DATA_STRING = xmlSerializer.serializeToString(XHR_REQUEST_DATA);
+			console.log(XHR_REQUEST_DATA_STRING);
+		})
+	})
+	$("button#getJSON").click(function(event){
+		$.getJSON(
+			"users.json",
+			(data, textStatus, jqXHR) => {
+				console.log(data);
+				console.log(textStatus);
+				console.log(jqXHR);
+			}
+		)
+	})
+})
+</script>

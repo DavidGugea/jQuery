@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>	
+	</head>
+	<body>
+		<button id="getXML">Get XML</button>
+		<button id="getJSON">Get JSON</button>
+		
+		<hr>
+
+		<p id="result"></p>
+	</body>
+</html>
+<script>
+// let domParser = new DOMParser();
+// let xmlDOM = domParser.parseFromString(xmlString, 'text/xml');
+// let xmlSerializer = new XMLSerializer();
+// let xmlStringSerialized = xmlSerializer.serializerToString(xmlDOM);
+
+document.addEventListener(
+	"DOMContentLoaded",
+	(DOM_READY_EVENT) => {
+		$("button#getXML").click(function(event){
+			$.get({
+				url : "person.xml",
+				dataType : "xml"
+			}).done((XHR_REQUEST_DATA) => {
+				let xmlSerializer = new XMLSerializer();
+				console.log(XHR_REQUEST_DATA);
+				let xmlStringSerialized = xmlSerializer.serializeToString(XHR_REQUEST_DATA);
+				console.log(xmlStringSerialized)
+			})
+		});
+		$("button#getJSON").click(function(event){
+			$.get({
+				url : "users.json",
+				dataType : "json"
+			}).done((XHR_REQUEST_DATA) => {
+				console.log(XHR_REQUEST_DATA);
+			})
+		})
+	},
+	false // dispatch event in the bubbling phase not in the capturing phase
+)
+</script>

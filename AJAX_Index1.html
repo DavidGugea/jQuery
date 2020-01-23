@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | AJAX</title>
+
+    <style>
+        *{
+            background-color: black;
+            color: white;
+
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+let request = new XMLHttpRequest();
+
+request.addEventListener(
+    "load",
+    (event) => {
+        if(request.readyState === 4 && request.status === 200){
+            // readyState === 4 => "loaded"
+            // status === 200 => "OK"
+
+            console.log("Response: ");
+            console.log(request.response);
+            console.log(typeof request.response);
+            console.log(JSON.parse(request.response));
+            console.log("Response text: ");
+            console.log(request.responseText);
+            console.log(typeof request.responseText);
+            console.log(JSON.parse(request.responseText));
+            console.log("Response XML: ");
+            console.log(request.responseXML);
+        }
+    },
+    false // dispatch event in the bubbling phase not in the capturing phase
+);
+
+request.open(
+    "GET",
+    "AJAX_FILES/user.json"
+);
+request.setRequestHeader("Accept", "text/json");
+request.send();
+</script>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | AJAX</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+    <style>
+        *{
+            background-color: black;
+            color: #f4f4f4;
+
+            font-family: Verdana;
+        }
+        a{
+            background-color: #222;
+            color: #f4f4f4;
+
+            font-family:'Courier New', Courier, monospace;
+
+            text-decoration: none;
+            text-transform: none;
+        }
+
+        main{
+            background-color: red;
+            color: white;
+
+            width: 300px;
+            height: 300px;
+        }
+        button{
+            background-color: #f4f4f4;
+            color: #333;
+
+            padding: 10px;
+            text-align: center;
+
+            border: 0;
+
+            font-family: Verdana;
+        }
+        button:hover{
+            background-color: #333;
+            color: #f4f4f4;
+
+            border-radius: 30px;
+
+            transition: all 2500ms;
+        }
+        p{
+            background-color: #333;
+            color: #f4f4f4;
+
+            font-family: monospace;
+            padding: 20px;
+
+            text-align: center;
+
+            width: 200px;
+        }
+        p:hover{
+            background-color: #f4f4f4;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+	<p id="result"></p>
+</body>
+</html>
+<script>
+function spaceUp(){
+    for(let i = 0 ; i < 3 ; i++){
+        console.log(" ");
+    };
+};
+
+let newArtist = {
+    "name": "Deltron 3030",
+    "albums": [
+        {
+            "title": "Deltron 3030",
+            "year": 2000
+        },
+        {
+            "title": "Event 2",
+            "year": 2013
+        }
+    ]
+};
+
+'use strict'
+function initTable(){
+	let table = document.createElement("table");
+	table.setAttribute("id" , "usersTable");
+
+	// table head
+	let tHead = document.createElement("thead");
+	// table body
+	let tBody = document.createElement("tbody");
+	
+	let tHead_name = document.createElement("th");
+	tHead_name.textContent = "Name";
+	let tHead_age = document.createElement("th");
+	tHead_age.textContent = "Age";
+
+	tHead.appendChild(tHead_name);
+	tHead.appendChild(tHead_age);
+
+	table.appendChild(tHead); // appending table head to the table
+	table.appendChild(tBody); // appending table body to the table
+
+	$("body").append(table);
+}
+$(document).ready((DOCUMENT_READY_EVENT) =>{
+	$.ajax({
+		url : "AJAX_FILES/users.json",
+		dataType : "json",
+		type : "GET",
+		success : (data) => {
+			initTable(); // make the table, including an empty table body
+			data.map((obj) => {
+				let tableRow = document.createElement("tr");
+				
+				// table == > NAME
+				let tableData_name = document.createElement("td");
+				tableData_name.textContent = obj.name;
+
+				// table == > AGE
+				let tableData_age = document.createElement("td");
+				tableData_age.textContent = obj.age;
+
+				tableRow.appendChild(tableData_name);
+				tableRow.appendChild(tableData_age);
+
+				$("table#usersTable tbody").append(tableRow);	
+			});
+		},
+		error: (jqXHR, errorMessage, error) => {
+			console.log(jqXHR);
+			console.log(errorMessage);
+			console.log(error);
+		}
+	})
+}) 
+
+
+
+</script>

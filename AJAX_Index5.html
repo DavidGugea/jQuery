@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | AJAX</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+    <style>
+        *{
+            background-color: black;
+            color: #f4f4f4;
+
+            font-family: Verdana;
+        }
+        a{
+            background-color: #222;
+            color: #f4f4f4;
+
+            font-family:'Courier New', Courier, monospace;
+
+            text-decoration: none;
+            text-transform: none;
+        }
+
+        main{
+            background-color: red;
+            color: white;
+
+            width: 300px;
+            height: 300px;
+        }
+        button{
+            background-color: #f4f4f4;
+            color: #333;
+
+            padding: 10px;
+            text-align: center;
+
+            border: 0;
+
+            font-family: Verdana;
+        }
+        button:hover{
+            background-color: #333;
+            color: #f4f4f4;
+
+            border-radius: 30px;
+
+            transition: all 2500ms;
+        }
+        p{
+            background-color: #333;
+            color: #f4f4f4;
+
+            font-family: monospace;
+            padding: 20px;
+
+            text-align: center;
+
+            width: 200px;
+        }
+        p:hover{
+            background-color: #f4f4f4;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <button id="getJSON">Get json</button>
+
+    <hr>
+
+    <p id="result"></p>
+</body>
+</html>
+<script>
+function spaceUp(){
+    for(let i = 0 ; i < 3 ; i++){
+        console.log(" ");
+    };
+};
+
+class requestGetter{
+  constructor(resultQuery="console"){
+    this.resultQuery = resultQuery;
+    this.requestResponse = new String();
+  }
+  getRequest(requestPath){
+    this.requestPath = requestPath;
+    let request = new XMLHttpRequest();
+    var OBJECT_THIS = this;
+
+
+    request.addEventListener(
+      "load",
+      (event) => {
+        if(request.readyState === 4 && request.status === 200){
+          // request.readyState === 4 => request.readyState is "loaded"
+          // request.state === 200 => request.readyState is "OK"
+
+          OBJECT_THIS.requestResponse = typeof request.response === "string" ? JSON.parse(request.response) : request.response
+
+          console.log(OBJECT_THIS.requestResponse);
+
+          switch(OBJECT_THIS.resultQuery){
+            case "console":
+              console.log(OBJECT_THIS.requestResponse);
+              break;
+            case null:
+            case undefined:
+              break;
+            default:
+              $(OBJECT_THIS.resultQuery).text(Object.entries(OBJECT_THIS.requestResponse).reduce((accumulator, KVP, KVP_INDEX, original_KVP_entries) => (accumulator += `${KVP[0]} : ${KVP[1]}\n`, accumulator) , new String()))
+              break
+          }
+        }
+      },
+      false // dispatch the event in the bubbling phase not in the capturing phase
+    )
+
+    request.open(
+      "GET",
+      this.requestPath
+    )
+    request.setRequestHeader("Accept", "text/json");
+    request.send();
+  }
+}
+
+$("button#getJSON").click((event) => {
+  let newRequestGetter = new requestGetter("p#result");
+  newRequestGetter.getRequest("AJAX_FILES/user.json");
+})
+</script>
