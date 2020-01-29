@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery Crash Course | Events</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        body{
+            font-size: 17px;
+            font-family: Arial;
+
+            background-color: #f4f4f4;
+            line-height: 1.5em;
+        }
+        header{
+            background-color: #333;
+            color: #fff;
+
+            padding: 20px;
+            text-align: center;
+
+            border-bottom: 4px #000 solid;
+            margin-bottom: 10px;
+        }
+        #container{
+            width: 90%;
+            margin: auto;
+
+            padding: 10px;
+        }
+        #box{
+            background-color: #333;
+            color: #fff;
+
+            width: 500;
+            height: 90px;
+            padding: 40px;
+
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>jQuery Crash Course</h1>
+    </header>
+    <div id="container">
+      <div id="result"></div>
+      <ul id="users"></ul>
+
+      <hr>
+
+      <h3>Add Post</h3>
+      <form action="https://jsonplaceholder.typicode.com/posts" id="postForm">
+        <input type="text" name="title" id="title" placeholder="Title"><br>
+        <textarea name="body" id="body" placeholder="Body" cols="30" rows="10"></textarea><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+</body>
+</html>
+<script>
+$(document).ready(function(DOCUMENT_READY_EVENT){
+  /*
+  $("#result").load("test.html", function(responseText, statusText, xhr){
+    if(statusText == "success"){
+      alert("It went fine");
+    }else if(statusText == "error"){
+      alert(`Error: ${xhr.statusText}`);
+    }
+  });
+  */
+  /*
+  $.get("test.html", function(data){
+    $("#result").html(data);
+  });
+  */
+  /*
+  $.getJSON("https://jsonplaceholder.typicode.com/posts", function(data){
+    $.each(data, function(userIndex, user){
+      $("#users").append(`<li>${user.id}</li>`)
+    })
+  });
+  */
+
+  /*
+  $.ajax({
+    method: "GET",
+    url: "https://jsonplaceholder.typicode.com/posts",
+    dataType: "json"
+  }).done(function(data){
+    console.log(data);
+    $.map(data, function(post, postIndex){
+      $("#result").append(`<h3>${post.title}</h3><p>${post.body}</p>`)
+    })
+  });
+  */
+
+  $("#postForm").submit(function(event){
+    event.preventDefault();
+
+    var title = $("#title").val();
+    var body = $("#body").val();
+    var url = $(this).attr("action");
+
+    $.post(url, {
+      title: title,
+      body: body
+    }).done(function(data){
+      console.log("Post Saved");
+      console.log(data);
+    })
+  })
+})
+</script>

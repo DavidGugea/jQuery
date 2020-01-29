@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<button id="get_Request">Get Normal Request</button>
+		<button id="get_Request_fetchAPI">Get fetch api request</button>
+		<button id="get_Request_jQuery">Get jQuery ajax request</button>
+
+		<hr>
+
+		<button id="send_Request">Send Normal Request</button>
+		<button id="send_Request_fetchAPI">Send fetch api request</button>
+		<button id="send_Request_jQuery">Send jQuery ajax request</button>
+
+		<hr>
+
+		<p id="result"></p>
+	</body>
+</html>
+<script>
+class XHR_REQUEST{
+	constructor(resultLabel){
+		this.resultLabel = resultLabel
+	}
+	getRequest(requestPath, requestHeader="text/json"){
+		this.requestPath = requestPath;
+		this.requestHeader = requestHeader;
+
+		var self = this;
+		let request = new XMLHttpRequest();
+
+		request.addEventListener(
+			"load",
+			(event) => {
+				if(request.readyState === 4 && request.status === 200){
+					switch(self.resultLabel){
+						case "console":
+							console.log(typeof request.response === "object" || typeof request.response === "array" ? request.response : JSON.parse(request.response));
+							break;
+						case undefined:
+						case null:
+						case false:
+							break;
+						default:
+							$(self.resultLabel).text(Object.entries(typeof request.response === "object" || typeof request.response === "array" ? request.response : JSON.parse(request.response)).reduce((accumulator, KVP, KVP_Index, OriginalArrayIndex) => (accumulator += `${KVP[0]} : ${KVP[1]}\n`, accumulator), new String()))
+							break;
+					}
+				}
+			},
+			false // dispatch event in the bubbling phase not in the capturing phase
+		)
+
+		request.open(
+			"GET",
+			this.requestPath
+		);
+
+		request.setRequestHeader("Accept", this.requestHeader);
+		request.send();
+	}
+	sendRequest(requestPath, requestSendObject = {},requestHeader="application/json"){
+		this.requestPath = requestPath;
+		this.requestHeader = requestHeader;
+		this.requestSendObject = requestSendObject;
+
+		var self = this;
+		let request = new XMLHttpRequest();
+
+		request.addEventListener(
+			"load",
+			(event) => {
+				if(request.readyState === 4 && request.status === 200){
+					switch(self.resultLabel){
+						case "console":
+							console.log("Request sent.");
+							break;
+						case false:
+						case undefined:
+						case null:
+							break;
+						default:
+							$(self.resultLabel).text("Request sent.");
+							break;
+					}
+				}
+			},
+			false // dispatch event in the bubbling phase not in the capturing phase
+		)
+
+		request.open(
+			"POST",
+			this.requestPath
+		)
+
+		request.setRequestHeader("Content-Type", this.requestHeader);
+		request.send(this.requestSendObject)
+	}
+}
+
+class FETCH_API_XHR{
+	constructor(resultLabel){
+		this.resultLabel = resultLabel;
+	}
+	getRequest(requestPath){
+		this.requestPath = requestPath;
+
+		var self = this;
+
+		fetch(self.requestPath)
+		.then((response) => {
+			return response.json();
+		}).then((data) =>{
+			switch(self.resultLabel){
+				case "console":
+					console.log(typeof data === "object" ? data : JSON.parse(data));
+					break;
+				case false:
+				case undefined:
+				case null:
+					break;
+				default:
+					$(self.resultLabel).text(Object.entries(typeof data === "object" ? data : JSON.parse(data)).reduce((accumulator, KVP, KVP_INDEX, OriginalArrayEntries) => (accumulator += `${KVP[0]} : ${KVP[1]}\n`, accumulator) ,new String()))
+					break;
+			}
+		} )
+	}
+	sendRequest(requestPath, requestSendObject, requestHeader){
+		this.requestPath = requestPath;
+		this.requestHeader = requestHeader;
+		this.requestSendObject = requestSendObject;
+
+		var self = this;
+
+		fetch(this.requestPath, {
+			method : "POST",
+			header: self.requestHeader,
+			body: self.requestSendObject
+		}).then((XHR_RESPONSE) => {
+			return XHR_RESPONSE.json()
+		}).then((XHR_DATA) => {
+			switch(self.resultLabel){
+				case "console":
+					console.log("Request sent.");
+					break;
+				case false:
+				case undefined:
+				case null:
+					break;
+				default:
+					$(self.resultLabel).text("Request sent.");
+					break;
+			}
+		})
+	}
+}
+
+class jQuery_XHR_REQUEST{
+	constructor(resultLabel){
+		this.resultLabel = resultLabel;
+	}
+	getRequest(requestPath, requestDataType){
+		this.requestPath = requestPath;
+		this.requestDataType = requestDataType;
+
+		var self = this;
+
+		$.ajax({
+			url : self.requestPath,
+			dataType : self.requestDataType,
+			type : "GET",
+		}).done((requestData) => {
+			switch(self.resultLabel){
+				case "console":
+					console.log(requestData);
+					break;
+				case false:
+				case undefined:
+				case null:
+					break;
+				default:
+					$(self.resultLabel).text(Object.entries(typeof requestData === "object" ? requestData : JSON.parse(requestData)).reduce((accumulator, KVP, KVP_INDEX, OriginalArrayEntries) => (accumulator += `${KVP[0]} : ${KVP[1]}\n`, accumulator) ,new String()))
+					break;
+			}
+		})
+	}
+	sendRequest(requestPath, requestSendObject, requestHeaders, requestDataType){
+		this.requestPath = requestPath;
+		this.requestSendObject = requestSendObject;
+		this.requestHeaders = requestHeaders;
+		this.requestDataType = requestDataType;
+
+		var self = this;
+
+		$.ajax({
+			url : self.requestPath,
+			dataType : self.requestDataType,
+			headers : self.requestHeaders,
+			data : self.requestSendObject
+		}).done((XHR_DATA_RESPONSE) => {
+			switch(self.resultLabel){
+				case "console":
+					console.log("Request sent.");
+					console.log(typeof XHR_DATA_RESPONSE === "object" ? XHR_DATA_RESPONSE : JSON.parse(XHR_DATA_RESPONSE));
+					break;
+				case false:
+				case undefined:
+				case null:
+					break;
+				default:
+					$(self.resultLabel).text("Request sent.");
+					break;
+			}
+		})
+	}
+}
+
+let newPerson = {
+	name : "Person Y",
+	age : 15
+}
+
+document.addEventListener(
+	"DOMContentLoaded",
+	(DOM_READY_EVENT) => {
+		// Normal XHR Request
+		$("button#get_Request").click(function(event){
+			let NORMAL_XHR_REQUEST_GET = new XHR_REQUEST("console");
+			NORMAL_XHR_REQUEST_GET.getRequest("users.json", "text/json");
+		})
+		$("button#send_Request").click(function(event){
+			let NORMAL_XHR_REQUEST_POST = new XHR_REQUEST("p#result");
+			NORMAL_XHR_REQUEST_POST.sendRequest("user.json", newPerson, "application/json");
+		})
+
+		// FETCH API XHR Request
+		$("button#get_Request_fetchAPI").click(function(event){
+			let FETCH_API_XHR_REQUEST_GET = new FETCH_API_XHR("console");
+			FETCH_API_XHR_REQUEST_GET.getRequest("users.json");
+		})
+		$("button#send_Request_fetchAPI").click(function(event){
+			let FETCH_API_XHR_REQUEST_SEND = new FETCH_API_XHR("console");
+			FETCH_API_XHR_REQUEST_SEND.sendRequest("users.json", {
+				"Content-Type" : "application/json",
+				"Accept" : "text/json"
+			})
+		})
+
+		// jQuery XHR Request
+		$("button#get_Request_jQuery").click(function(event){
+			let jQuery_XHR_REQUEST_GET = new jQuery_XHR_REQUEST("console");
+			jQuery_XHR_REQUEST_GET.getRequest("users.json", "json")
+		})
+		$("button#send_Request_jQuery").click(function(event){
+			let jQuery_XHR_REQUEST_POST = new jQuery_XHR_REQUEST("console");
+			// sendRequest(requestPath, requestSendObject, requestHeaders, requestDataType)
+			jQuery_XHR_REQUEST_POST.sendRequest("users.json", newPerson, {
+				"Content-Type" : "application/json",
+				"Accept" : "json"
+
+			}, "html")
+		})
+	},
+	false // dispatch event in the bubbling phase not in the capturing phase
+)
+</script>

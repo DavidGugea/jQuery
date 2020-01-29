@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>	
+	</head>
+	<body>
+		<p id="result"></p>
+	</body>
+</html>
+<script>
+$.ajax({
+	url : "users.json",
+	dataType : "json",
+	type : "GET",
+	success : (data) => {
+		console.log(data);	
+	}		
+})
+
+let request = new XMLHttpRequest();
+
+request.addEventListener(
+	"load",
+	(event) => {
+		if(request.readyState === 4 && request.status === 200){
+			console.log(request.response);	
+			console.log(JSON.parse(request.response));	
+		}
+	},
+	false // dispatch event in the bubbling phase not in the capturing phase
+);
+
+request.open("GET", "users.json");
+request.setRequestHeader("Accept", "text/json");
+request.send();
+</script>

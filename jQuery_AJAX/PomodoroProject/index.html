@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+		<link rel="stylesheet" href="style/main.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+		<title>Study Project</title>
+	</head>
+	<body>
+		<header>
+			<h1>Study Project</h1>
+
+			<aside id="headerButtons">
+				<button id="pomodoro_HeaderButton" data-target="pomodoro_mainSection">Pomodoro</button>
+				<button id="schedule_HeaderButton" data-target="schedule_mainSection">Schedule</button>
+				<button id="login_HeaderButton" data-target="login_mainSection">Login</button>
+			</aside>
+		</header>
+		<section id="home">
+			<h1>Study Project</h1>
+			<p>
+			<h1>Lorem</h1>
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta doloribus sint, nobis rerum tempore voluptas debitis magnam amet earum repellendus eaque natus quod dolores maxime, placeat sapiente architecto esse assumenda fugiat excepturi perspiciatis. Magnam a repellendus laboriosam magni perferendis, maxime reprehenderit iusto sed, molestiae ad cumque rerum ea voluptas at natus aut provident ducimus enim? Ducimus, architecto? Ut, quam. Accusantium eveniet iusto quas laudantium pariatur. Laudantium dolor qui accusantium porro nostrum consequatur provident nihil itaque quibusdam alias eaque consectetur at, deleniti animi error enim non eligendi voluptatum. Sequi assumenda quis asperiores qui modi maxime libero velit, iure consequatur veritatis accusamus mollitia. Perspiciatis necessitatibus, illum magni numquam error, consequatur cumque repellat ipsam, vero fuga adipisci reprehenderit sit. Sequi sit quam voluptates excepturi ducimus quibusdam quis delectus sapiente animi dicta quasi voluptatem odio, eaque perferendis modi, necessitatibus nulla deserunt repellat, maxime consequatur. Neque quidem repellat, id labore repudiandae architecto voluptatem vel dolores odit nostrum explicabo temporibus, cupiditate laboriosam consectetur delectus sapiente nobis nam iste dolor itaque aliquam autem officiis. Corrupti assumenda dignissimos fugiat impedit labore rerum recusandae. Corporis minus nostrum doloribus voluptate labore ex! Quo, numquam earum soluta officia eaque eum distinctio nisi corporis, quia obcaecati nesciunt pariatur nemo consequuntur, eveniet deleniti accusamus! Laboriosam sapiente eligendi quidem nemo id soluta? Non tempora in iusto possimus minima incidunt voluptate quia corporis debitis nobis vitae officia quam eligendi porro, obcaecati molestiae adipisci numquam? Officia cum sed, obcaecati omnis, hic eligendi tempore recusandae quibusdam voluptate itaque blanditiis. Et impedit, perferendis cum necessitatibus consequatur totam? Tempora eum molestias iure ullam tenetur ab quidem, corrupti dolorum officia, voluptate magni quas sed! Dicta incidunt unde, recusandae eaque soluta inventore quaerat molestiae fuga blanditiis cum eligendi porro nesciunt animi facere et explicabo placeat quam consequuntur doloribus sapiente magnam qui illo vitae delectus? Nisi consequuntur ut maiores consequatur quas quibusdam!
+			</p>
+			<p>
+			<h1>Lorem</h1>
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla fugit perferendis mollitia consectetur nesciunt in beatae veritatis voluptatum cupiditate, iure laudantium aspernatur illum excepturi doloremque? Similique molestias natus voluptates aliquid voluptate quis ipsum quae accusantium voluptatum labore doloremque libero illum, pariatur deserunt minima excepturi unde ducimus repellendus sint quibusdam enim soluta tenetur inventore eum. Enim doloribus dolore laboriosam optio ipsum assumenda maiores modi, libero nobis voluptas. Ut accusantium ex molestias! Aliquam ut expedita sunt vero temporibus dolorum officiis quod distinctio modi, quibusdam voluptates nisi aut? Sunt rem deserunt autem ea ullam aperiam voluptate aliquid cumque? Pariatur facere tempore officia dolore!
+			</p>
+			<p>
+			<h1>Lorem</h1>
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi nesciunt, neque dolorem ipsam mollitia hic esse harum voluptate? Est exercitationem officia ab, voluptatum expedita perferendis modi aut ad accusamus rerum deserunt autem provident animi labore maiores mollitia quam similique repudiandae. Illo modi officia consequatur molestias accusamus dolor omnis, vel rerum.
+			</p>
+		</section>
+		<section id="pomodoro_mainSection">
+			<h1>Pomodoro Timer</h1>
+			<section id="pomodoroConfiguration">
+				<input type="text" name="pomodoroLapTimeWait" id="pomodoroLapTimeWait" placeholder="Lap time">
+				<input type="text" name="shortBreakTimeWait" id="shortBreakTimeWait" placeholder="Short break time">
+				<input type="text" name="bigBreakTimeWait" id="bigBreakTimeWait" placeholder="Big break time">
+				<input type="text" name="lapsTillBigBreak" id="lapsTillBigBreak" placeholder="Laps till big break">
+			</section>
+			<section id="pomodoroDetailsConfiguration">
+				<input type="text" name="pomodoroDetailsConfiguration_TITLE" id="pomodoroDetailsConfiguration_TITLE" placeholder="Lap Title">
+				<textarea name="pomodoroDetailsConfiguration_DETAILS" id="pomodoroDetailsConfiguration_DETAILS" placeholder="Lap Details" cols="30" rows="10"></textarea>
+			</section>
+			<section id="pomodoroButtons">
+				<button id="start_pomodoroButtons">Start</button>
+				<button id="stop_pomodoroButtons">Stop</button>
+				<button id="reset_pomodoroButtons">Reset</button>
+			</section>
+			<h1 class="pomodoroTimerTracker">25:00</h1>
+			<h1 class="shortBreakTimerTracker">5:00</h1>
+			<h1 class="bigBreakTimerTracker">15:00</h1>
+			<section id="pomodoroDetails_Data">
+			</section>
+		</section>
+		<section id="schedule_mainSection">
+			<h1 class="schedule_mainSectionTitle">Schedule</h1>
+			<section id="ScheduleDetails">
+				<div class="basicScheduleDetails">
+					<input type="text" name="schedule_detailsTitle" id="schedule_detailsTitle" placeholder="Title">
+					<input type="text" name="schedule_detailsTimeStart" id="schedule_detailsTimeStart" placeholder="Start time ( e.g -> 7:00) ">
+					<input type="text" id="schedule_detailsTimeEnd" name="schedule_detailsTimeEnd" placeholder="End time ( e.g -> 17:20)">
+				</div>
+				<textarea name="schedule_textareaDetails" id="schedule_textareaDetails" cols="30" rows="10"></textarea>
+			</section>
+			<section id="schedule_detailsDAYS">
+				<div id="MondaySchedule">
+					<h1 class="SCHEDULE_DAY_TITLE">Monday</h1>
+				</div>
+				<div id="TuesdaySchedule">
+					<h1 class="SCHEDULE_DAY_TITLE">Tuesday</h1>
+				</div>
+				<div id="WednesdaySchedule">
+					<h1 class="SCHEDULE_DAY_TITLE">Wednesday</h1>
+				</div>
+				<div id="ThursdaySchedule">
+					<h1 class="SCHEDULE_DAY_TITLE">Thursday</h1>
+				</div>
+				<div id="FridaySchedule">
+					<h1 class="SCHEDULE_DAY_TITLE">Friday</h1>
+				</div>
+				<div id="SaturdaySchedule">
+					<h1 class="SCHEDULE_DAY_TITLE">Saturday</h1>
+				</div>
+				<div id="SundaySchedule">
+					<h1 class="SCHEDULE_DAY_TITLE">Sunday</h1>
+				</div>
+			</section>
+		</section>
+		<section id="login_mainSection">
+			<h1>Login</h1>
+			<section id="loginSection">
+				<input type="text" name="username" id="username" placeholder="Username">
+				<input type="password" name="password" id="password" placeholder="Password">
+				<button id="logIn_BUTTON">Log In</button>
+				<button id="register_BUTTON">Register</button>
+			</section>
+		</section>
+	</body>
+	<script src="scripts/main.js"></script>
+</html>

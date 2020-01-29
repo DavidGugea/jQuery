@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | AJAX</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+    <style>
+        *{
+            background-color: black;
+            color: #f4f4f4;
+
+            font-family: Verdana;
+        }
+        a{
+            background-color: #222;
+            color: #f4f4f4;
+
+            font-family:'Courier New', Courier, monospace;
+
+            text-decoration: none;
+            text-transform: none;
+        }
+
+        main{
+            background-color: red;
+            color: white;
+
+            width: 300px;
+            height: 300px;
+        }
+        button{
+            background-color: #f4f4f4;
+            color: #333;
+
+            padding: 10px;
+            text-align: center;
+
+            border: 0;
+
+            font-family: Verdana;
+        }
+        button:hover{
+            background-color: #333;
+            color: #f4f4f4;
+
+            border-radius: 30px;
+
+            transition: all 2500ms;
+        }
+        p{
+            background-color: #333;
+            color: #f4f4f4;
+
+            font-family: monospace;
+            padding: 20px;
+
+            text-align: center;
+
+            width: 200px;
+        }
+        p:hover{
+            background-color: #f4f4f4;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <button id="sendJSON">Send json</button>
+    <button id="getJSON">Get json</button>
+
+    <hr>
+
+    <p id="result"></p>
+</body>
+</html>
+<script>
+function spaceUp(){
+    for(let i = 0 ; i < 3 ; i++){
+        console.log(" ");
+    };
+};
+
+let newArtist = {
+    "name": "Deltron 3030",
+    "albums": [
+        {
+            "title": "Deltron 3030",
+            "year": 2000
+        },
+        {
+            "title": "Event 2",
+            "year": 2013
+        }
+    ]
+};
+
+class configRequest{
+    constructor(resultLabel){
+        this.resultLabel = resultLabel;
+    }
+    sendRequest(requestPath, requestObject={}, requestHeader="application/json"){
+        this.requestPath = requestPath;
+        this.requestObject = requestObject;
+        this.requestHeader = requestHeader;
+
+        var self = this;
+
+        let request = new XMLHttpRequest();
+        
+        request.addEventListener(
+            "load",
+            (event) => {
+                if(request.readyState === 4 && request.status === 200){
+                    $(self.resultLabel).text("Request sent.");
+                }
+            },
+            false // dispatch event in the bubbling phase not in the capturing phase
+        );
+
+        request.open(
+            "POST",
+            this.requestPath
+        );
+        request.setRequestHeader("Content-Type", this.requestHeader);
+        request.send(this.requestObject);
+    }
+    getRequest(requestPath, display = this.resultLabel, requestHeader="text/json"){
+        this.requestPath = requestPath;
+        this.requestHeader = requestHeader;
+        this.display = display;
+
+        var self = this;
+        var request = new XMLHttpRequest();
+
+        request.addEventListener(
+            "load",
+            (event) => {
+                if(request.readyState === 4 && request.status === 200){
+                    let JSON_OJBECT = typeof request.response === "string" ? JSON.parse(request.response) : request.response;
+                    console.log(JSON_OJBECT);
+                    switch(self.display){
+                        case "console":
+                            console.log(JSON_OJBECT)
+                            break;
+                        case undefined:
+                        case false:
+                        case null:
+                            break;
+                        default:
+                            $(self.resultLabel).text(Object.entries(JSON_OJBECT).reduce((accumulator, KVP, KVP_INDEX, original_KVP_entry) => (accumulator+= `${KVP[0]} : ${KVP[1]}\n`, accumulator), new String()))
+                            break;
+                    }
+                }
+            },
+            false // dispatch event in the bubbling phase not in the capturing phase
+        )
+
+        request.open(
+            "GET",
+            this.requestPath
+        );
+        request.setRequestHeader("Accept", "text/json");
+        request.send();
+    }
+};
+
+$("button#sendJSON").click((event) => {
+    let newRequest = new configRequest("p#result");
+    newRequest.sendRequest("AJAX_FILES/users.json", newArtist);
+});
+$("button#getJSON").click((event) => {
+    let newRequest = new configRequest("p#result");
+    newRequest.getRequest("AJAX_FILES/user.json");
+})
+</script>

@@ -1,0 +1,500 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery | AJAX</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQUERY -->
+    <style>
+        *{
+            background-color: black;
+            color: #f4f4f4;
+
+            font-family: Verdana;
+        }
+      	section#style > div:first-child{
+      		display: grid;
+
+      		grid-template-columns: repeat(2, 1fr);
+      		grid-template-rows: 1fr;
+
+          margin-bottom: 300px;
+      	}
+      	section#style{
+      		display: grid;
+
+      		grid-template-columns: 1fr;
+      		grid-template-rows: repeat(2, 1fr);
+      	}
+      	section#moveCube > div:first-child{
+      		display: grid;
+
+      		width: 40%;
+
+      		grid-template-columns: repeat(4, 1fr);
+      		grid-template-rows: 1fr;
+      	}
+        section#moveCube{
+          display: grid;
+
+          grid-template-columns: 1fr;
+          grid-template-rows: repeat(2, 1fr);
+        }
+      	section#animations{
+      		display: grid;
+
+      		width: 40%;
+      		margin: auto;
+
+      		grid-template-columns: repeat(3, 1fr);
+      		grid-template-rows: repeat(2, 1fr);
+      	}
+      	button{
+      		background-color: #f4f4f4;
+      		color: #333;
+
+      		border: 0;
+      		width: 100px;
+      		padding: 10px;
+      		margin: 10px;
+      	}
+      	button:hover{
+      		background-color: #333;
+      		color: #f4f4f4;
+
+      		border-radius: 30px;
+
+      		transition: all 2500ms;
+      	}
+      	main#cube{
+      		width: 200px;
+      		height: 200px;
+
+      		background-color: yellow;
+      	}
+      	section#ajax{
+      		display: grid;
+
+      		grid-template-columns: repeat(3, 1fr);
+      	  grid-template-rows: 1fr;
+
+      		width: 80%;
+      		margin-top: 20px;
+      	}
+      	p#result{
+      		color: #f4f4f4;
+      		font-family: Verdana;
+      	}
+    </style>
+</head>
+<body>
+    <section id="style">
+        <div>
+          <section id="moveCube">
+            <div>
+              <button id="moveForward">Move forward</button>
+              <button id="moveDown">Move backwards</button>
+              <button id="moveLeft">Move left</button>
+              <button id="moveRight">Move right</button>
+            </div>
+            <div>
+              <button id="moveAround">Move around</button>
+            </div>
+          </section>
+          <section id="animations">
+            <button id="fadeIn">Fade in</button>
+            <button id="fadeOut">Fade out</button>
+            <button id="fadeToggle">Fade toggle</button>
+            <button id="slideDown">Slide down</button>
+            <button id="slideUp">Slide up</button>
+            <button id="slideToggle">Slide toggle</button>
+          </section>
+        </div>
+        <main id="cube"></main>
+    </section>
+    <hr>
+    <section id="ajax">
+		<div>
+	    <button id="normal_XHR_GET_REQUEST">Normal XHR Get Request</button>
+		  <button id="fetchAPI_XHR_GET_REQUEST">Fetch API XHR Get Request</button>
+		  <button id="jQueryAPI_XHR_GET_REQUEST">jQuery API XHR Get Request</button>
+		</div>
+		<div>
+			<button id="normal_XHR_POST_REQUEST">Normal XHR Post Request</button>
+			<button id="fetchAPI_XHR_POST_REQUEST">Fetch API XHR Post Request</button>
+			<button id="jQuery_API_XHR_POST_REQUEST">Post API XHR Post Request</button>
+		</div>
+    </section>
+	<p id="result"></p>
+</body>
+</html>
+<script>
+function spaceUp(){
+    for(let i = 0 ; i < 3 ; i++){
+        console.log(" ");
+    };
+};
+
+let newArtist = {
+    "name": "Deltron 3030",
+    "albums": [
+        {
+            "title": "Deltron 3030",
+            "year": 2000
+        },
+        {
+            "title": "Event 2",
+            "year": 2013
+        }
+    ]
+};
+
+class jQuery_Animations{
+	constructor(target_object){
+		this.target_object = target_object;
+	}
+	moveForward(){
+		$(this.target_object).animate({
+			"margin-top": "0px"
+		}, "slow", (event) =>{
+			console.log("Move forward.");
+		})
+	}
+  moveRight(){
+    $(this.target_object).animate({
+      "margin-left" : "500px"
+    }, "slow", (event) => {
+      console.log("Move right");
+    })
+  }
+  moveLeft(){
+    $(this.target_object).animate({
+      "margin-left" : "0px"
+    }, "slow", (event) => {
+      console.log("Move left");
+    })
+  }
+  moveDown(){
+    $(this.target_object).animate({
+      "margin-top" : "150px"
+    }, "slow", (event) => {
+      console.log("Move down");
+    })
+  }
+  moveAround(){
+    $(this.target_object).animate({
+      "margin-left" : "500px",
+      "opacity" : 0.2
+    }, "slow")
+    $(this.target_object).animate({
+      "margin-top" : "200px"
+    }, "slow")
+    $(this.target_object).animate({
+      "margin-left" : "0px"
+    })
+    $(this.target_object).animate({
+      "margin-top" : "0px",
+      "opacity" : 1
+    })
+  }
+  fadeIn_Animate(){
+    $(this.target_object).fadeIn();
+  }
+  fadeOut_Animate(){
+    $(this.target_object).fadeOut();
+  }
+  fadeToggle_Animate(){
+    $(this.target_object).fadeToggle();
+  }
+  slideDown_Animate(){
+    $(this.target_object).slideDown();
+  }
+  slideOut_Animate(){
+    $(this.target_object).slideUp();
+  }
+  slideToggle_Animate(){
+    $(this.target_object).slideToggle();
+  }
+};
+
+document.addEventListener(
+  "DOMContentLoaded",
+  (DOM_EVENT_READY) => {
+    let animateObject = new jQuery_Animations("main#cube");
+    $("button#moveForward").click(function(event){
+      animateObject.moveForward();
+    });
+    $("button#moveRight").click(function(event){
+      animateObject.moveRight();
+    });
+    $("button#moveLeft").click(function(event){
+      animateObject.moveLeft();
+    });
+    $("button#moveDown").click(function(event){
+      animateObject.moveDown();
+    });
+    $("button#moveAround").click(function(event){
+      animateObject.moveAround();
+    });
+    $("button#fadeIn").click(function(event){
+      animateObject.fadeIn_Animate();
+    });
+    $("button#fadeOut").click(function(event){
+      animateObject.fadeOut_Animate();
+    });
+    $("button#fadeToggle").click(function(event){
+      animateObject.fadeToggle_Animate();
+    });
+    $("button#slideDown").click(function(event){
+      animateObject.slideDown_Animate();
+    });
+    $("button#slideUp").click(function(event){
+      animateObject.slideOut_Animate();
+    });
+    $("button#slideToggle").click(function(event){
+      animateObject.slideToggle_Animate();
+    })
+  },
+  false // dispatch event in the bubbling phase not in the capturing phase
+);
+
+class normal_XHR_REQUEST{
+  constructor(resultLabel){
+    this.resultLabel = resultLabel;
+  }
+  getRequest(requestPath, requestHeaders="text/json"){
+    this.requestPath = requestPath;
+    this.requestHeaders = requestHeaders;
+
+    var self = this;
+
+    let request = new XMLHttpRequest();
+
+    request.addEventListener(
+      "load",
+      (event) => {
+        if(request.readyState === 4 && request.status === 200){
+          let JSON_OBJECT = typeof request.response === "object" ? request.response : JSON.parse(request.response);
+ 
+          switch(self.resultLabel){
+            case "console":
+              console.log(JSON_OBJECT);
+              break;
+            case false:
+            case undefined:
+            case null:
+              break;
+            default:
+              $(self.resultLabel).text(Object.entries(JSON_OBJECT).reduce((accumulator, KVP, KVP_INDEX, OriginalKVPEntriesArray) => (accumulator += `${KVP[0]} : ${KVP[1]}\n`, accumulator),new String()))
+              break;
+          }
+        }
+      },
+      false // dispatch event in the <bubbling> </bubbling> phase not in the capturing phase
+    )
+
+    request.open(
+      "GET",
+      this.requestPath
+    );
+    request.setRequestHeader("Accept", this.requestHeaders);
+    request.send();
+  }
+  postRequest(requestPath, requestSendObject={}, requestHeaders="application/json"){
+    this.requestPath = requestPath;
+    this.requestSendObject = requestSendObject;
+    this.requestHeaders = requestHeaders;
+
+    var self = this;
+
+    let request = new XMLHttpRequest();
+
+    request.addEventListener(
+      "load",
+      (event) => {
+        if(request.readyState === 4 && request.status === 200){
+          switch(self.resultLabel){
+            case "console":
+              console.log("Request sent.");
+              break;
+            case false:
+            case undefined:
+            case null:
+              break;
+            default:
+              $(self.resultLabel).text("Request sent.");
+              break;
+          }
+        }
+      },
+      false // dispatch event in the bubbling phase not in the capturing phase
+    )
+
+    request.open(
+      "POST",
+      this.requestPath
+    );
+    request.setRequestHeader("Content-Type", this.requestHeaders);
+    request.send(this.requestSendObject);
+  }
+}
+class fetch_API_REQUEST{
+  constructor(resultLabel){
+    this.resultLabel = resultLabel
+  }
+  getRequest(requestPath){
+    this.requestPath = requestPath;
+    var self = this;
+
+    fetch(this.requestPath)
+      .then((XHR_RESPONSE) => XHR_RESPONSE.json())
+      .then((XHR_DATA_GET) => {
+        XHR_DATA_GET = typeof XHR_DATA_GET === "object" ? XHR_DATA_GET : JSON.parse(XHR_DATA_GET);
+        switch(self.resultLabel){
+          case "console":
+            console.log(XHR_DATA_GET);
+            break;
+          case false:
+          case undefined:
+          case null:
+            break;
+          default:
+            $(self.resultLabel).text(Object.entries(XHR_DATA_GET).reduce((accumulator, KVP, KVP_INDEX, OriginalKVPEntriesArray) => (accumulator += `${KVP[0]} : ${KVP[1]}\n`, accumulator),new String()))
+            break;
+        }
+      })
+  }
+  postRequest(requestPath, requestSendObject={}, requestHeaders={}){
+    this.requestPath = requestPath;
+    this.requestSendObject = requestSendObject;
+    this.requestHeaders = requestHeaders;
+
+    var self = this;
+
+    fetch(this.requestPath, {
+      method : "POST",
+      headers : self.requestHeaders,
+      body: self.requestSendObject
+    })
+      .then((XHR_RESPONSE) => XHR_RESPONSE.json())
+      .then((XHR_DATA_GET) => {
+        switch(self.resultLabel){
+          case "console":
+            console.log("Request sent.");
+            break;
+          case false:
+          case undefined:
+          case null:
+            break;
+          default:
+            $(self.resultLabel).text("Request sent.");
+            break;
+        }
+      })
+  }
+}
+class jQuery_AJAX_REQUEST{
+  constructor(resultLabel){
+    this.resultLabel = resultLabel;
+  }
+  getRequest(requestPath, requestDataType, requestHeaders){
+    this.requestPath = requestPath;
+    this.requestDataType = requestDataType;
+
+    var self = this;
+
+    $.ajax({
+      url : this.requestPath,
+      dataType : this.requestDataType,
+      type : "GET"
+    }).done((XHR_REQUEST_DATA) => {
+      XHR_REQUEST_DATA = typeof XHR_REQUEST_DATA === "object" ? XHR_REQUEST_DATA : JSON.parse(XHR_REQUEST_DATA);
+
+      switch(self.resultLabel){
+        case "console":
+          console.log(XHR_REQUEST_DATA);
+          break;
+        case false:
+        case undefined:
+        case null:
+          break;
+        default:
+          $(self.resultLabel).text(Object.entries(XHR_REQUEST_DATA).reduce((accumulator, KVP, KVP_INDEX, OriginalKVPEntriesArray) => (accumulator += `${KVP[0]} : ${KVP[1]}\n`, accumulator) ,new String()))
+          break;
+      }
+    })
+  }
+  postRequest(requestPath, requestDataType, requestHeaders, requestSendObject){
+    this.requestPath = requestPath;
+    this.requestDataType = requestDataType;
+    this.requestHeaders = requestHeaders;
+    this.requestSendObject = requestSendObject;
+
+    var self = this;
+
+    $.ajax({
+      url : this.requestPath,
+      dataType : this.requestDataType,
+      type : "POST",
+      data : this.requestSendObject,
+      headers: this.requestHeaders
+    }).done((XHR_DATA_RESPONSE) => {
+      XHR_DATA_RESPONSE = typeof XHR_DATA_RESPONSE === "object" ? XHR_DATA_RESPONSE : JSON.parse(XHR_DATA_RESPONSE);
+
+      console.log(XHR_DATA_RESPONSE);
+      switch(self.resultLabel){
+        case "console":
+          console.log("Request sent.");
+          break;
+        case false:
+        case undefined:
+        case null:
+          break;
+        default:
+          $(self.resultLabel).text("Request sent.");
+          break;
+      }
+    })
+  }
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  (DOM_READY_EVENT) => {
+    // NORMAL TYPE REQUESTS //
+    let NORMAL_XHR_REQUEST = new normal_XHR_REQUEST("p#result");
+    $("button#normal_XHR_GET_REQUEST").click(function(event){
+      NORMAL_XHR_REQUEST.getRequest("AJAX_FILES/user.json", "text/json");
+    })
+    $("button#normal_XHR_POST_REQUEST").click(function(event){
+      NORMAL_XHR_REQUEST.postRequest("AJAX_FILES/PostRequestFile.json", newArtist, "application/json");
+    })
+    // NORMAL TYPE REQUESTS //
+    // FETCH API REQUESTS //
+    let FETCH_API_XHR_REQUEST = new fetch_API_REQUEST("p#result");
+    $("button#fetchAPI_XHR_GET_REQUEST").click(function(event){
+      FETCH_API_XHR_REQUEST.getRequest("AJAX_FILES/user.json");
+    });
+    $("button#fetchAPI_XHR_POST_REQUEST").click(function(event){
+      FETCH_API_XHR_REQUEST.postRequest("AJAX_FILES/user.json");
+    })
+    // FETCH API REQUESTS //
+    // jQuery API REQUESTS //
+    let jQuery_API_XHR_REQUEST = new jQuery_AJAX_REQUEST("p#result");
+    $("button#jQueryAPI_XHR_GET_REQUEST").click(function(event){
+      jQuery_API_XHR_REQUEST.getRequest("AJAX_FILES/user.json", "json", {
+        "Content-Type" : "application/json",
+        "Accept" : "json"
+      })
+    });
+    $("button#jQuery_API_XHR_POST_REQUEST").click(function(event){
+      jQuery_API_XHR_REQUEST.postRequest("AJAX_FILES/user.json", "html", {
+        "Content-Type" : "application/json",
+        "Accept" : "json"
+      }, newArtist)
+    });
+    // jQuery API REQUESTS //
+  },
+  false // dispatch event in the bubbling phase not in the capturing phase
+)
+</script>

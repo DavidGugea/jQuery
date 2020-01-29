@@ -1,0 +1,458 @@
+/* GENERALS */
+body{
+	background-color: #f4f4f4;
+	line-height: 1.6rem;
+
+	font-family: 'Roboto Mono', monospace;  
+
+	background-color: #f4f4f4;
+
+	width: 100%;
+
+	margin: 0;
+	padding: 0;
+}
+
+.activate{
+	display: block;
+}
+/* GENERALS */
+/* HEADER */ 
+header{
+	display: grid;
+
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: 1fr;
+
+	width: 100%;
+	padding: 10px;
+	margin: auto;
+
+	background-color: #f3f3f3;
+	border-bottom: 1px solid black;
+
+	text-align: center;
+}
+aside#headerButtons{
+	display: grid;
+
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 1fr;
+
+	width: 30%;
+	margin: auto;
+}
+aside#headerButtons > button{
+	border: 0;
+	margin-right: 20px;
+
+	background-color: #333;
+	color: #f4f4f4;
+
+	font-family: Verdana;
+	padding: 15px;
+
+	transition: all 1500ms;
+}
+aside#headerButtons > button:hover{
+	background-color: #f4f4f4;
+	color: #333;
+
+	border-radius: 30px;
+
+	transition: all 1500ms;
+}
+/* HEADER */
+
+/* MAIN SECTION */
+section#home{
+	width: 80%;
+	margin: auto;
+
+	text-align: center;
+}
+section#home > h1:first-child{
+	font-size: 40px;
+	color: #333;
+
+	transition: all 1500ms;
+}
+section#home > h1:first-child:hover{
+	color: #f4f4f4;
+	font-size: 45px;
+
+	transition: all 1500ms;
+}
+/* MAIN SECTION */
+/* pomodoro_mainSection */
+section#pomodoro_mainSection{
+	display: none;
+}
+section#pomodoro_mainSection > h1:first-child{
+	font-size: 40px;
+	text-align: center;
+
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+	transition: all 3000ms;
+}
+h1.shortBreakTimerTracker, h1.pomodoroTimerTracker, h1.bigBreakTimerTracker{
+	font-size: 40px;
+	padding: 20px;
+
+	display: none;
+	text-align: center;
+}
+.pomodoroTimerTracker{
+	padding: 40px;
+}
+section#pomodoroConfiguration{
+	display: grid;
+
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: 1fr;
+
+	padding: 100px;
+
+	width: 40%;
+	margin: auto;
+}
+section#pomodoroConfiguration > input, section#pomodoroDetailsConfiguration > input{
+	width: 150px;
+	margin: auto;
+
+	background-color: #999;
+	color: #f4f4f4;
+
+	padding: 10px; 
+	border: 0;
+
+	transition: all 1500ms;
+}
+section#pomodoroConfiguration > input:hover, section#pomodoroDetailsConfiguration > input:hover{
+	background-color: #f4f4f4;
+	color: #999;
+
+	border-radius: 30px;
+
+	transition: all 1500ms;
+}
+section#pomodoroDetailsConfiguration{
+	width: 40%;
+	margin: auto;
+
+	margin-bottom: 50px;
+
+	text-align: center;
+}
+section#pomodoroDetailsConfiguration textarea{
+	resize: none;
+	vertical-align: top;
+
+	width: 300px;
+	height: 100px;
+
+	margin-left: 50px;
+
+	border: 0;
+}
+section#pomodoroButtons{
+	display: grid;
+
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 1fr;
+
+	padding: 40px;
+
+	width: 40%;
+	margin: auto;
+}
+section#pomodoroButtons > button{
+	width: 150px;
+	margin: auto;
+
+	background-color: #333;
+	color: #f4f4f4;
+
+	padding: 10px;
+	border: 0;
+
+	transition: all 1500ms;
+}
+section#pomodoroButtons > button:hover{
+	background-color: #f4f4f4;
+	color: #333;
+
+	border-radius: 30px;
+
+	transition: all 1500ms;
+}
+
+.newDiv_TimeArrow{
+	color: #333;
+
+	transition: all 2500ms;
+}
+.newDiv_TimeArrow:hover{
+	color: #999;
+
+	transition: all 2500ms;
+}
+.pomodoroDetails_DELETE_BUTTON{
+	background-color: #333;
+	color: #f4f4f4;
+
+	padding: 10px;
+
+	border: 0;
+	font-family: Verdana;
+
+	transition: all 1500ms;
+}
+.pomodoroDetails_DELETE_BUTTON:hover{
+	background-color: #999;
+	color: #333;
+
+	border-radius: 20px;
+
+	transition: all 1500ms;
+}
+/* pomodoro_mainSection */
+
+/* schedule_mainSection */
+section#schedule_mainSection{
+	display: none;
+}
+h1.schedule_mainSectionTitle{
+	width: 100%;
+	font-size: 40px;
+	font-family: Verdana;
+
+	text-align: center;
+
+	transition: all 2500ms;
+}
+h1.schedule_mainSectionTitle:hover{
+	font-size: 45px;
+	color: #f4f4f4;
+
+	transition: all 2500ms;
+}
+section#ScheduleDetails{
+	display: grid;
+
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: 1fr;
+
+
+	text-align: center;
+	margin: auto;
+
+	margin-top: 100px;
+
+	padding: 20px;
+}
+section#ScheduleDetails input, select#section_detailsSelectDay,button#section_details_INSERT_BUTTON{
+	border: 0;
+	padding: 10px;
+
+	width: 225px;
+
+	background-color: #333;
+	color: #f4f4f4;
+
+	font-family: Verdana;
+
+	margin-top: 10px;
+	margin-bottom: 10px;
+
+	transition: all 5000ms;
+}
+section#ScheduleDetails input:hover, select#section_detailsSelectDay:hover, button#section_details_INSERT_BUTTON:hover{
+	background-color: #f4f4f4;
+	color: #333;
+
+
+	transition: all 5000ms;
+}
+
+select#section_detailsSelectDay, button#section_details_INSERT_BUTTON{
+	width: 245px;
+}
+
+section#ScheduleDetails textarea{
+	resize: none;
+	vertical-align: top;
+
+	width: 500px;
+	height: 100px;
+
+	background-color: #333;
+	color: #f4f4f4;
+
+	font-family: Verdana;
+
+	transition: all 5000ms;
+}
+section#ScheduleDetails textarea:hover{
+	background-color: #f4f4f4;
+	color: #333;
+
+	transition: all 5000ms;
+}
+div.basicScheduleDetails{
+	display: grid;
+
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(5, 1fr);
+
+	margin-left: 300px;
+}
+
+input.SCHEDULE_CHECKBOX::before {
+	width: 15px;
+	height: 15px;
+	border-radius: 15px;
+	border: 2px solid #8cad2d;
+	background-color: #fff;
+	display: block;
+	content: "";
+	float: left;
+	margin-right: 5px;
+}
+input.SCHEDULE_CHECKBOX:checked::before {
+	box-shadow: inset 0px 0px 0px 3px #fff;
+	background-color: #8cad2d;
+}
+
+section#schedule_detailsDAYS > div{
+	margin-bottom: 30px;
+}
+section#schedule_detailsDAYS > div h1.SCHEDULE_DAY_TITLE{
+	font-size: 27px;
+
+	text-align: center;
+}
+div#DIV_FOR_SCHEDULE_DAY{
+	display: grid;
+
+	grid-template-rows: 1fr;
+
+	text-align: center;
+
+	border-bottom: 1px solid black;
+	margin-bottom: 10px;
+
+	padding: 10px;
+
+	width: 100%;
+}
+div#DAY_TITLE_WITH_CHECKBOX{
+	padding: 5px;
+};
+div#DAY_TITLE_WITH_CHECKBOX h2{
+	display: inline;
+}
+button#schedule_DeleteSection_Button{
+	background-color: #333;
+	color: #f4f4f4;
+
+	border: 0;
+	padding: 5px;
+
+	font-family: Verdana;
+	transition: all 2500ms;
+
+}
+button#schedule_DeleteSection_Button:hover{
+	background-color: #f4f4f4;
+	color: #333;
+
+	transition: all 2500ms;
+}
+/* schedule_mainSection */
+
+/* login_mainSection */
+section#login_mainSection{
+	display: none;
+}
+section#login_mainSection h1{
+	font-size: 40px;
+	text-align: center;
+	color: #333;
+
+	transition: all 2500ms;
+}
+section#login_mainSection h1:hover{
+	font-size: 45px;
+	color: #f4f4f4;
+
+	transition: all 2500ms;
+}
+section#loginSection{
+	display: grid;
+
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(4, 1fr);
+
+	width: 50%;
+
+	margin: auto;
+	margin-top: 300px;
+
+	text-align: center;
+}
+section#loginSection input, section#loginSection button{
+	background-color: #333;
+	color: #f4f4f4;
+
+	border: 0;
+	width: 300px;
+
+	text-align: center;
+
+	margin-bottom: 20px;
+	margin-left: 325px;
+
+	padding: 10px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+	transition: all 2000ms;
+}
+section#loginSection button{
+	width: 321px;
+}
+section#loginSection input:hover, section#loginSection button:hover{
+	background-color: #8cad2d;
+	color: #f4f4f4;
+
+	border-radius: 30px;
+
+	transition: all 2000ms;
+}
+.error_LogIn{
+	color: red;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	padding: 10px;
+}
+button.loginSection_logoutButton{
+	background-color: #333;
+	color: #f4f4f4;
+
+	padding: 10px;
+	border: 0;
+
+	font-family: Verdana;
+	
+	transition: all 2500ms;
+}
+button.loginSection_logoutButton:hover{
+	background-color: #f4f4f4;
+	color: #333;
+	
+	border-radius: 20px;
+
+	transition: all 2500ms;	
+}
+/* login_mainSection */
