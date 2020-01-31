@@ -66,6 +66,7 @@ var breaks_timeEnd_EVENT = new CustomEvent(
 document.querySelector("button#start_pomodoroButtons").addEventListener(
 	"pomodoroLap_timeEnd_EVENT",
 	(event) => {
+		console.log(`AUDIO PLAY : ${event.detail.soundPath}`);
 		let newAudio = new Audio(event.detail.soundPath);
 		newAudio.play();
 	},
@@ -325,6 +326,7 @@ function DISPLAY_DETAILS(type, title, WAIT_TIME_DETAILS) {
 			} else {
 				// Set the amount of columns on 1fr
 				// Add the textarea, if the input box isn't empty
+				/*
 				let newDiv_TEXTAREA_DETAILS = document.createElement("p");
 				newDiv_TEXTAREA_DETAILS.setAttribute("class", "pomodoro_details_textarea");
 
@@ -333,6 +335,7 @@ function DISPLAY_DETAILS(type, title, WAIT_TIME_DETAILS) {
 
 				// At the textarea to the newDiv
 				newDiv.appendChild(newDiv_TEXTAREA_DETAILS);
+				*/
 
 				newDiv.style.gridTemplateColumns = "1fr";
 			}
@@ -356,12 +359,24 @@ function DISPLAY_DETAILS(type, title, WAIT_TIME_DETAILS) {
 					TEXTBOX_ELEMENT.appendChild(paragraphAdd);
 				});
 
-					
-				var textareaElement = document.querySelector(`div#POMODORO_DETAILS_DIV`);
-				textareaElement.innerHTML = TEXTBOX_ELEMENT.innerHTML;
+				if(document.querySelector("div#POMODORO_DETAILS_DIV")){
+					var textareaElement = document.querySelector(`div#POMODORO_DETAILS_DIV`);
+					textareaElement.innerHTML = TEXTBOX_ELEMENT.innerHTML;
+				}else{
+					let POMODORO_DETAILS_DIV = document.createElement("div");
+					POMODORO_DETAILS_DIV.setAttribute("id", "POMODORO_DETAILS_DIV");
+
+					POMODORO_DETAILS_DIV.innerHTML = TEXTBOX_ELEMENT.innerHTML;
+
+					document.querySelector(`div.${title}`).appendChild(POMODORO_DETAILS_DIV);
+					document.querySelector(`div.${title}`).style.display = "grid";
+					document.querySelector(`div.${title}`).style.gridTemplateColumns = "repeat(2, 1fr)";
+					document.querySelector(`div.${title}`).style.gridTemplateRows = "1fr";
+				}
 			} else {
 				// Set the amount of columns on 1fr
-				newDiv.style.gridTemplateColumns = "1fr";
+				console.log(title);
+				document.querySelector(`div.${title}`).style.gridTemplateColumns = "1fr";
 			}
 			// UPDATE TEXTAREA //
 
@@ -646,7 +661,7 @@ function pomodoroTimer(timerTYPE) {
 				lapsCounter_Tracker = 0;
 			}
 		}
-	}, 1000)
+	}, 100)
 }
 
 $("button#start_pomodoroButtons").click((event) => {
