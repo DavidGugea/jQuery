@@ -1,37 +1,37 @@
 // Add history pushState | #home | in the beginning where the document loads.
-$(document).ready((function(DOM_READY_EVENT){
+$(document).ready((function (DOM_READY_EVENT) {
 	$("section#home").addClass("activate");
 	history.pushState("home", "home", "#home");
 }));
 // Add history pushState | #home | in the beginning where the document loads.
 
-// HISTORY PUSH STATE 
-$("aside#headerButtons > button").click(function(event){
+// HISTORY PUSH STATE
+$("aside#headerButtons > button").click(function (event) {
 	let DATA_TARGET = $(event.target).attr("data-target");
 	$(`section#${DATA_TARGET}`).css({
-		"display" : "block"
+		"display": "block"
 	});
 	history.pushState(DATA_TARGET, DATA_TARGET, `#${DATA_TARGET.split("_")[0]}`);
 
 	$("section.activate").css({
-		"display" : "none"
+		"display": "none"
 	})
 	$("section.activate").removeClass("activate");
 	$(`section#${DATA_TARGET}`).addClass("activate");
 });
-// HISTORY PUSH STATE 
+// HISTORY PUSH STATE
 
 // DOCUMENT POPSTATE EVENT //
 window.addEventListener(
 	"popstate",
 	(event) => {
 		$("section.activate").css({
-			"display" : "none"
+			"display": "none"
 		});
 		$("section.activate").removeClass("activate");
 		$(`section#${history.state}`).addClass("activate");
 		$('section.activate').css({
-			"display" : "block"
+			"display": "block"
 		})
 	},
 	false // dispatch event in the bubbling phase not in the capturing phase
@@ -42,21 +42,19 @@ window.addEventListener(
 let lapsCounter_Tracker = 0;
 
 var pomodoroLap_timeEnd_EVENT = new CustomEvent(
-	"pomodoroLap_timeEnd_EVENT",
-	{
+	"pomodoroLap_timeEnd_EVENT", {
 		detail: {
-			whenToDispatch : "Dispatch this event after the pomodoro lap is over.",
-			soundPath: "SoundEffects/dingSoundEffect.wav" 
+			whenToDispatch: "Dispatch this event after the pomodoro lap is over.",
+			soundPath: "SoundEffects/dingSoundEffect.wav"
 		},
 		bubbles: false,
 		cancelable: false
 	}
 );
 var breaks_timeEnd_EVENT = new CustomEvent(
-	"breaks_timeEnd_EVENT",
-	{
+	"breaks_timeEnd_EVENT", {
 		detail: {
-			whenToDispatch : "Dispatch this event after the break is over. (all types of break)",
+			whenToDispatch: "Dispatch this event after the break is over. (all types of break)",
 			soundPath: "SoundEffects/boxing_bell.wav"
 		},
 		bubbles: false,
@@ -70,7 +68,7 @@ document.querySelector("button#start_pomodoroButtons").addEventListener(
 	(event) => {
 		let newAudio = new Audio(event.detail.soundPath);
 		newAudio.play();
-	},  
+	},
 	false // dispatch event in the bubbling phase not in the capturing phase
 );
 document.querySelector("button#start_pomodoroButtons").addEventListener(
@@ -82,8 +80,8 @@ document.querySelector("button#start_pomodoroButtons").addEventListener(
 	false // dispatch event in the bubbling phase not in the capturing phase
 );
 
-function displayDate_dateType(givenDate){
-	// Get the values 
+function displayDate_dateType(givenDate) {
+	// Get the values
 	let hours = givenDate.getHours();
 	let minutes = givenDate.getMinutes();
 
@@ -94,14 +92,14 @@ function displayDate_dateType(givenDate){
 	// Check if they are lower than 10, if they are, then add a 0 before the number(or after), otherwise, don't change the number
 	let returnString = "";
 
-	if(hours < 10){
+	if (hours < 10) {
 		returnString += `0${hours} : `;
-	}else{
+	} else {
 		returnString += `${hours} : `;
 	};
-	if(minutes < 10){
+	if (minutes < 10) {
 		returnString += `0${minutes}`;
-	}else{
+	} else {
 		returnString += minutes.toString();
 	}
 
@@ -109,38 +107,40 @@ function displayDate_dateType(givenDate){
 
 	return returnString;
 }
-function displayDate(date){
+
+function displayDate(date) {
 	date = date.toString();
 
-	if(date.split(":").length === 1){
-		if(eval(date) < 10){
+	if (date.split(":").length === 1) {
+		if (eval(date) < 10) {
 			return `0${date}:00`;
-		}else{
+		} else {
 			return `${date}:00`;
 		}
 	}
-	if(date.split(":").length === 2){
+	if (date.split(":").length === 2) {
 		let minutesNumber = eval(date.split(":")[0]);
 		let secondsNumber = eval(date.split(":")[1]);
 
-		if(minutesNumber < 10){
+		if (minutesNumber < 10) {
 			minutesNumber = `0${minutesNumber}`
 		}
-		if(secondsNumber < 10){
+		if (secondsNumber < 10) {
 			secondsNumber = `0${secondsNumber}`
 		}
 
 		return `${minutesNumber}:${secondsNumber}`;
 	}
 }
-function displayError(display, queryDisplay, querySetNone_1, querySetNone_2){
+
+function displayError(display, queryDisplay, querySetNone_1, querySetNone_2) {
 	display.text("Wrong input");
 
 	display.css({
-		"display" : "block"
+		"display": "block"
 	})
 	$("h1.shortBreakTimerTracker, h1.bigBreakTimerTracker").css({
-		"display" : "none"
+		"display": "none"
 	});
 
 	window.setTimeout(
@@ -148,19 +148,21 @@ function displayError(display, queryDisplay, querySetNone_1, querySetNone_2){
 			// Set the displays and the texts to none
 			$(`${queryDisplay}, ${querySetNone_1}, ${querySetNone_2}`).text("");
 			$(`${queryDisplay}, ${querySetNone_1}, ${querySetNone_2}`).css({
-				"display" : "none"
+				"display": "none"
 			});
 		},
 		5000
 	);
 };
-function increaseTime_On_PomodoroDetailsSection(title, timerType){
+
+function increaseTime_On_PomodoroDetailsSection(title, timerType) {
+	console.log(`timerType : ${timerType}`);
 	// TIMER TYPES : pomodoroLap // shortBreakTime // bigBreakTime // stop
 
 	let DISPLAY = $(`section#pomodoroDetails_Data div.${title}`);
 
-	if(DISPLAY.length !== 0){
-		// console.log(`INCREASE TIME ON POMODORO DETAILS // TIMER TYPE : ${timerType}`); 
+	if (DISPLAY.length !== 0) {
+		// console.log(`INCREASE TIME ON POMODORO DETAILS // TIMER TYPE : ${timerType}`);
 		// console.log(DISPLAY);
 
 		let TIME_DIV = $(`section#pomodoroDetails_Data div.${title} main p.newDiv_TIME_Paragraph`);
@@ -170,8 +172,8 @@ function increaseTime_On_PomodoroDetailsSection(title, timerType){
 		let TIME_TEXT = TIME_DIV.text();
 
 		// Make 2 arrays containing the FIRST and the SECOND date, each one containing the first element as the hours, the other one at the seconds
-		let FIRST_DATE = [TIME_TEXT.split("-->")[0].trim().split(":")[1].trim() ,TIME_TEXT.split("-->")[0].trim().split(":")[2].trim()];
-		let SECOND_DATE = [TIME_TEXT.split("-->")[1].trim().split(":")[0].trim(),  TIME_TEXT.split("-->")[1].trim().split(":")[1].trim()]
+		let FIRST_DATE = [TIME_TEXT.split("-->")[0].trim().split(":")[1].trim(), TIME_TEXT.split("-->")[0].trim().split(":")[2].trim()];
+		let SECOND_DATE = [TIME_TEXT.split("-->")[1].trim().split(":")[0].trim(), TIME_TEXT.split("-->")[1].trim().split(":")[1].trim()]
 
 		let firstDate = new Date();
 		firstDate.setHours(eval(FIRST_DATE[0]));
@@ -181,16 +183,20 @@ function increaseTime_On_PomodoroDetailsSection(title, timerType){
 		secondDate.setHours(eval(SECOND_DATE[0]));
 		secondDate.setMinutes(eval(SECOND_DATE[1]));
 
-		if(timerType === "pomodoroLap"){
+		console.log("ASD");
+
+		if (timerType === "pomodoroLap") {
 			// Increase the secondDate by the input of the pomodoro lap
-			secondDate = new Date(secondDate.getTime() + eval($("section#pomodoroConfiguration input#pomodoroLapTimeWait").val())*60*1000);
-		}else if(timerType === "shortBreakTime"){
+			secondDate = new Date(secondDate.getTime() + eval($("section#pomodoroConfiguration input#pomodoroLapTimeWait").val()) * 60 * 1000);
+		} else if (timerType === "shortBreakTime") {
 			// Increase the secondDate by the input of the pomodoro lap
-			secondDate = new Date(secondDate.getTime() + eval($("section#pomodoroConfiguration input#shortBreakTimeWait").val())*60*1000);
-		}else if(timerType === "bigBreakTime"){
+			console.log(`SECOND DATE SHORT BREAK TIME INCREASE : ${$("section#pomodoroConfiguration input#shortBreakTimeWait").val() * 60 * 1000} ||| secondDate : ${secondDate.getTime()}`)
+
+			secondDate = new Date(secondDate.getTime() + eval($("section#pomodoroConfiguration input#shortBreakTimeWait").val()) * 60 * 1000);
+		} else if (timerType === "bigBreakTime") {
 			// Increase the secondDate by the input of the pomodoro lap
-			secondDate = new Date(secondDate.getTime() + eval($("section#pomodoroConfiguration input#bigBreakTimeWait").val())*60*1000);
-		}else if(timerType === "stop"){
+			secondDate = new Date(secondDate.getTime() + eval($("section#pomodoroConfiguration input#bigBreakTimeWait").val()) * 60 * 1000);
+		} else if (timerType === "stop") {
 			console.log("TIMER TYPE IS STOP");
 
 			let time = eval($("section#pomodoroDetailsConfiguration").attr("time"));
@@ -218,19 +224,20 @@ function increaseTime_On_PomodoroDetailsSection(title, timerType){
 		TIME_DIV.text(TIME_TEXT);
 	}
 }
-function DISPLAY_DETAILS(type, title, WAIT_TIME_DETAILS){
-	if(type === "pomodoroLap" && title.trim() !== ""){
+
+function DISPLAY_DETAILS(type, title, WAIT_TIME_DETAILS) {
+	if (type === "pomodoroLap" && title.trim() !== "") {
 		//console.log(`DISPLAY_DATE Fuction dispatched. Title used : ${title}`);
 
 		let newTitle = true;
 
 		document.querySelectorAll("section#pomodoroDetails_Data div").forEach((detailsSection) => {
-			if(detailsSection.getAttribute("class") === title){
+			if (detailsSection.getAttribute("class") === title) {
 				newTitle = false;
 			}
 		});
 
-		if(newTitle){
+		if (newTitle) {
 			// Create the main div that will be inserted in the details pomodoro section and configure it
 			let newDiv = document.createElement("div");
 			newDiv.setAttribute("class", title)
@@ -270,7 +277,7 @@ function DISPLAY_DETAILS(type, title, WAIT_TIME_DETAILS){
 			newDiv_DELETE_BUTTON.textContent = "Delete this section";
 			newDiv_DELETE_BUTTON.setAttribute("class", "pomodoroDetails_DELETE_BUTTON");
 
-			// Add a "click" event listener for the delete button 
+			// Add a "click" event listener for the delete button
 			newDiv_DELETE_BUTTON.addEventListener(
 				"click",
 				(event) => {
@@ -297,8 +304,9 @@ function DISPLAY_DETAILS(type, title, WAIT_TIME_DETAILS){
 			// Styling the SECTION
 
 			// Addding the textarea if neccessary
-			if($("textarea#pomodoroDetailsConfiguration_DETAILS").val().trim()){
+			if ($("textarea#pomodoroDetailsConfiguration_DETAILS").val().trim()) {
 				let TEXTBOX_ELEMENT = document.createElement("div");
+				TEXTBOX_ELEMENT.setAttribute("id", "POMODORO_DETAILS_DIV")
 
 				let TEXTBOX_TEXT = $("textarea#pomodoroDetailsConfiguration_DETAILS").val().trim();
 
@@ -309,112 +317,108 @@ function DISPLAY_DETAILS(type, title, WAIT_TIME_DETAILS){
 					TEXTBOX_ELEMENT.appendChild(paragraphAdd);
 				});
 
-				/*
-					// Add the textarea, if the input box isn't empty
-		let newDiv_TEXTAREA_DETAILS = document.createElement("p");
-		newDiv_TEXTAREA_DETAILS.setAttribute("class", "pomodoro_details_textarea");
+				// Split the columns into 2 parts
+				newDiv.style.gridTemplateColumns = "repeat(2, 1fr)";
 
-// Set the text content to the textarea input
-		newDiv_TEXTAREA_DETAILS.textContent = $("textarea#pomodoroDetailsConfiguration_DETAILS").val().trim();
-		*/
+				// At the textarea to the newDiv
+				newDiv.appendChild(TEXTBOX_ELEMENT);
+			} else {
+				// Set the amount of columns on 1fr
+				// Add the textarea, if the input box isn't empty
+				let newDiv_TEXTAREA_DETAILS = document.createElement("p");
+				newDiv_TEXTAREA_DETAILS.setAttribute("class", "pomodoro_details_textarea");
 
-// Split the columns into 2 parts
-newDiv.style.gridTemplateColumns = "repeat(2, 1fr)";
+				// Set the text content to the textarea input
+				newDiv_TEXTAREA_DETAILS.textContent = "";
 
-// At the textarea to the newDiv
-newDiv.appendChild(TEXTBOX_ELEMENT);
-}else{
-	// Set the amount of columns on 1fr
-	// Add the textarea, if the input box isn't empty
-	let newDiv_TEXTAREA_DETAILS = document.createElement("p");
-	newDiv_TEXTAREA_DETAILS.setAttribute("class", "pomodoro_details_textarea");
+				// At the textarea to the newDiv
+				newDiv.appendChild(newDiv_TEXTAREA_DETAILS);
 
-	// Set the text content to the textarea input
-	newDiv_TEXTAREA_DETAILS.textContent = "";
+				newDiv.style.gridTemplateColumns = "1fr";
+			}
 
-	// At the textarea to the newDiv
-	newDiv.appendChild(newDiv_TEXTAREA_DETAILS);
+			newDiv.style.textAlign = "center";
 
-	newDiv.style.gridTemplateColumns = "1fr";
-}
+			$("section#pomodoroDetails_Data").append(newDiv);
+		} else if (newTitle === false) {
+			console.log("USED TITLE POMODORO! == > INCREASE TIME ON POMODORO DETAILS SECTION");
 
-newDiv.style.textAlign = "center";
+			// UPDATE TEXTAREA //
+			if ($("textarea#pomodoroDetailsConfiguration_DETAILS").val().trim()) {
+				let TEXTBOX_ELEMENT = document.createElement("div");
+	
+				let TEXTBOX_TEXT = $("textarea#pomodoroDetailsConfiguration_DETAILS").val().trim();
+	
+				TEXTBOX_TEXT.split(/\r?\n/g).map((paragraph) => {
+					let paragraphAdd = document.createElement("p");
+	
+					paragraphAdd.textContent = paragraph;
+					TEXTBOX_ELEMENT.appendChild(paragraphAdd);
+				});
 
-$("section#pomodoroDetails_Data").append(newDiv);
-}else if(newTitle === false){
-	console.log("USED TITLE POMODORO! == > INCREASE TIME ON POMODORO DETAILS SECTION");
+					
+				var textareaElement = document.querySelector(`div#POMODORO_DETAILS_DIV`);
+				textareaElement.innerHTML = TEXTBOX_ELEMENT.innerHTML;
+			} else {
+				// Set the amount of columns on 1fr
+				newDiv.style.gridTemplateColumns = "1fr";
+			}
+			// UPDATE TEXTAREA //
 
-	// UPDATE TEXTAREA //
-	if($("textarea#pomodoroDetailsConfiguration_DETAILS").val().trim()){    
-		var textareaElement = document.querySelector(`section#pomodoroDetails_Data div.${title} p.pomodoro_details_textarea`);
-
-		var newDiv = document.querySelector(`section#pomodoroDetails_Data div.${title}`);
-
-		// Set the text content to the textarea input
-		textareaElement.textContent = $("textarea#pomodoroDetailsConfiguration_DETAILS").val().trim();
-
-		// Split the columns into 2 parts
-		console.log(newDiv);
-		newDiv.style.gridTemplateColumns = "repeat(2, 1fr)";
-	}else{
-		// Set the amount of columns on 1fr
-		newDiv.style.gridTemplateColumns = "1fr";
+			increaseTime_On_PomodoroDetailsSection(title, type);
+		}
+	} else if (type === "shortBreakTime" && title.trim() !== "") {
+		console.log(`TITLE USED FOR SHORT BREAK : ${title}`);
+		increaseTime_On_PomodoroDetailsSection(title, type);
+	} else if (type === "bigBreakTime" && title.trim() !== "") {
+		console.log(`TITLE USED FOR BIG BREAK : ${title}`);
+		increaseTime_On_PomodoroDetailsSection(title, type);
+	} else if (type === "stop" && title.trim() !== "") {
+		console.log(`STOPPED TIMER ! TITLE USED : ${title}`);
+		increaseTime_On_PomodoroDetailsSection(title, type);
 	}
-	// UPDATE TEXTAREA //
-
-	increaseTime_On_PomodoroDetailsSection(title, type);
-}
-}else if(type === "shortBreakTime" && title.trim() !== ""){
-	console.log(`TITLE USED FOR SHORT BREAK : ${title}`);
-	increaseTime_On_PomodoroDetailsSection(title, type);
-}else if(type === "bigBreakTime" && title.trim() !== ""){
-	console.log(`TITLE USED FOR BIG BREAK : ${title}`);
-	increaseTime_On_PomodoroDetailsSection(title, type);
-}else if(type === "stop" && title.trim() !== ""){
-	console.log(`STOPPED TIMER ! TITLE USED : ${title}`);
-	increaseTime_On_PomodoroDetailsSection(title, type);
-} 
 };
 
 var title;
-function pomodoroTimer(timerTYPE){
+
+function pomodoroTimer(timerTYPE) {
 	let WAIT_TIME = new Date();
 	let display;
 	let check = true;
 	let lapStop;
 
 	// Check the timer type and set the values for the specific timer type. For each case check for .val() if it returns a number or not. If there is a problem with the input, change the text to show it, after 5 seconds, set its display to none and text to nothing(""), for each case.
-	switch(timerTYPE){
+	switch (timerTYPE) {
 		case "pomodoroLap":
 			display = $("h1.pomodoroTimerTracker");
 
-			try{
+			try {
 				let userInputLapTimeWait_Input = eval($("input#pomodoroLapTimeWait").val()) || 25;
 
 				display.text(displayDate(userInputLapTimeWait_Input));
 
 				display.css({
-					"display" : "block"
+					"display": "block"
 				})
 				$("h1.shortBreakTimerTracker, h1.bigBreakTimerTracker").css({
-					"display" : "none"
+					"display": "none"
 				});
 
-				WAIT_TIME.setTime(userInputLapTimeWait_Input*60*1000);
+				WAIT_TIME.setTime(userInputLapTimeWait_Input * 60 * 1000);
 
 
 				title = $("input#pomodoroDetailsConfiguration_TITLE").val().trim();
-				//console.log(`TITLE pomodoroLap start : ${title}`);
+				console.log(`TITLE pomodoroLap start : ${title}`);
 				DISPLAY_DETAILS("pomodoroLap", title, WAIT_TIME.getTime());
 				console.log("DISPLAY_DETAILS IN POMODORO");
 
 				lapStop = eval($("input#lapsTillBigBreak").val());
 
-				check=true;
-			}catch($ERROR){
+				check = true;
+			} catch ($ERROR) {
 				console.log($ERROR);
 
-				check=false;
+				check = false;
 				displayError(display, "h1.pomodoroTimerTracker", "h1.shortBreakTimerTracker", "h1.bigBreakTimerTracker");
 			}
 
@@ -422,29 +426,29 @@ function pomodoroTimer(timerTYPE){
 		case "shortBreakTime":
 			display = $("h1.shortBreakTimerTracker");
 
-			try{
+			try {
 				let userInputShortBreakTimeWait_Input = eval($("input#shortBreakTimeWait").val()) || 5;
 				display.text(displayDate(userInputShortBreakTimeWait_Input))
 
 				display.css({
-					"display" : "block"
+					"display": "block"
 				})
 
 				$("h1.pomodoroTimerTracker, h1.bigBreakTimerTracker").css({
-					"display" : "none"
+					"display": "none"
 				});
 
 
-				WAIT_TIME.setTime(userInputShortBreakTimeWait_Input*60*1000);
+				WAIT_TIME.setTime(userInputShortBreakTimeWait_Input * 60 * 1000);
 
-				// console.log(`TITLE shortBreakTimer start : ${title}`);
+				console.log(`TITLE shortBreakTimer start : ${title}`);
 				DISPLAY_DETAILS("shortBreakTime", title, WAIT_TIME.getTime());
 				console.log("DISPLAY_DETAILS IN SHORT BREAK");
 
-				check=true;
-			}catch($ERROR){
+				check = true;
+			} catch ($ERROR) {
 				console.log($ERROR);
-				check=false;
+				check = false;
 				displayError(display, "h1.shortBreakTimerTracker", "h1.pomodoroTimerTracker", "h1.bigBreakTimerTracker")
 			}
 
@@ -452,37 +456,37 @@ function pomodoroTimer(timerTYPE){
 		case "bigBreakTime":
 			display = $("h1.bigBreakTimerTracker");
 
-			try{
+			try {
 				let userInputBigBreakTimeWait_INPUT = eval($("input#bigBreakTimeWait").val()) || 15;
 				display.text(displayDate(userInputBigBreakTimeWait_INPUT))
 
 				display.css({
-					"display" : "block"
+					"display": "block"
 				})
 
 				$("h1.pomodoroTimerTracker, h1.shortBreakTimer").css({
-					"display" : "none"
+					"display": "none"
 				});
 
 
-				WAIT_TIME.setTime(userInputBigBreakTimeWait_INPUT*60*1000);
+				WAIT_TIME.setTime(userInputBigBreakTimeWait_INPUT * 60 * 1000);
 
 				// console.log(`TITLE bigBreakTimer start : ${title}`);
 				DISPLAY_DETAILS("bigBreakTime", title, WAIT_TIME.getTime());
-				console.log("DISPLAY DETAILS IN BIG BREAK"); 
+				console.log("DISPLAY DETAILS IN BIG BREAK");
 
-				check=true;
-			}catch($ERROR){
+				check = true;
+			} catch ($ERROR) {
 				console.log($ERROR);
-				check=false;
-				displayError(display, "h1.bigBreakTimerTracker",  "h1.pomodoroTimerTracker", "h1.shortBreakTimerTracker");
+				check = false;
+				displayError(display, "h1.bigBreakTimerTracker", "h1.pomodoroTimerTracker", "h1.shortBreakTimerTracker");
 			}
 
 			break;
 		case "stop":
 			display = $("h1[time_stop = 'true']");
 
-			console.log("DISPLAY TRIGGER AFTER START: " );
+			console.log("DISPLAY TRIGGER AFTER START: ");
 			console.log(display);
 
 			WAIT_TIME.setTime(eval(display.attr("time")));
@@ -508,10 +512,9 @@ function pomodoroTimer(timerTYPE){
 	var MAIN_INTERVAL = window.setInterval(() => {
 		console.log(`Inside Interval, lap: ${lapsCounter_Tracker}`);
 		WAIT_TIME = new Date(WAIT_TIME.getTime() - 1000);
-		if(!check){
+		if (!check) {
 			window.clearInterval(MAIN_INTERVAL);
-		}
-		else{
+		} else {
 			display.text(displayDate(`${WAIT_TIME.getMinutes()}:${WAIT_TIME.getSeconds()}`));
 		}
 
@@ -530,15 +533,15 @@ function pomodoroTimer(timerTYPE){
 			let userInputLapTimeWait_Input = eval($("input#pomodoroLapTimeWait").val()) || 25;
 
 			display.css({
-				"display" : "block"
+				"display": "block"
 			});
 			$("h1.shortBreakTimerTracker,h1.bigBreakTimerTracker").css({
-				"display" : "none"
+				"display": "none"
 			});
 
 			display.attr("active", "true");
 
-			WAIT_TIME.setTime(userInputLapTimeWait_Input*61*1000);
+			WAIT_TIME.setTime(userInputLapTimeWait_Input * 60 * 1000);
 
 			// Lap Stop
 			lapStop = eval($("input#lapsTillBigBreak").val());
@@ -569,16 +572,16 @@ function pomodoroTimer(timerTYPE){
 			console.log(newDate, newDate.getTime());
 			// Set the time of the new date in the section#pomodoroDetailsConfiguration
 			$("section#pomodoroDetailsConfiguration").attr({
-				"time" : newDate.getTime()
+				"time": newDate.getTime()
 			});
 			let newDisplay = $("h1[active='true']");
 			//console.log("NEW DISPLAY STOP BUTTON : ");
 			//console.log(newDisplay);
 
 			newDisplay.attr({
-				"time_stop" : "true",
-				"time" : WAIT_TIME.getTime(),
-				"type" : timerTYPE
+				"time_stop": "true",
+				"time": WAIT_TIME.getTime(),
+				"type": timerTYPE
 			});
 
 			window.clearInterval(MAIN_INTERVAL);
@@ -586,15 +589,15 @@ function pomodoroTimer(timerTYPE){
 
 		// Stop button //
 
-		if(WAIT_TIME.getMinutes() === 0 && WAIT_TIME.getSeconds() === 0){
-			window.clearInterval(MAIN_INTERVAL);     
+		if (WAIT_TIME.getMinutes() === 0 && WAIT_TIME.getSeconds() === 0) {
+			window.clearInterval(MAIN_INTERVAL);
 			display.removeAttr("active");
 
-			if(timerTYPE === "pomodoroLap"){
+			if (timerTYPE === "pomodoroLap") {
 				// If the pomodoro lap is over then :
 				// Dispatch the event with the sound.
 				// Increase the counter by 1
-				// If the laps counter is 4, start after that the big break timer type , otherwise, start the short break timer type       
+				// If the laps counter is 4, start after that the big break timer type , otherwise, start the short break timer type
 
 				// Sound //
 				document.querySelector("button#start_pomodoroButtons").dispatchEvent(pomodoroLap_timeEnd_EVENT);
@@ -604,17 +607,16 @@ function pomodoroTimer(timerTYPE){
 				//console.log("Laps counter increased.");
 				lapsCounter_Tracker++;
 
-				if(lapsCounter_Tracker < lapStop){
+				if (lapsCounter_Tracker < lapStop) {
 					// Start the short break
 					pomodoroTimer("shortBreakTime");
-				}else{
+				} else {
 					// Start the big break
 					//console.log(`WE WILL CHOSE BIG BREAK TIME BECAUSE THE LAP NUMBER IS : | ${lapsCounter_Tracker} | LAP STOP : ${lapStop} |`);
 					pomodoroTimer("bigBreakTime");
 				}
 				// Lap tracker //
-			}
-			else if(timerTYPE === "shortBreakTime"){
+			} else if (timerTYPE === "shortBreakTime") {
 				// Dispatch the event with the sound
 				// Start the pomodoro lap
 
@@ -625,10 +627,9 @@ function pomodoroTimer(timerTYPE){
 				// Start pomodoro lap //
 				pomodoroTimer("pomodoroLap");
 				// Start pomodoro lap //
-			}
-			else if(timerTYPE === "bigBreakTime"){
-				// Dispatch the event with the sound 
-				// Start the pomodoro lap 
+			} else if (timerTYPE === "bigBreakTime") {
+				// Dispatch the event with the sound
+				// Start the pomodoro lap
 				// Set the counter to 0
 
 				// Sound //
@@ -646,23 +647,30 @@ function pomodoroTimer(timerTYPE){
 }
 
 $("button#start_pomodoroButtons").click((event) => {
-	//  
+	//
 
-	if($("h1.pomodoroTimerTracker").css("display") === "none" && $("h1.shortBreakTimerTracker").css("display") === "none" && $("h1.bigBreakTimerTracker").css("display") === "none"){
+	if ($("h1.pomodoroTimerTracker").css("display") === "none" && $("h1.shortBreakTimerTracker").css("display") === "none" && $("h1.bigBreakTimerTracker").css("display") === "none") {
 		$("h1.shortBreakTimerTracker, h1.bigBreakTimerTracker").css({
-			"display" : "none"
+			"display": "none"
 		});
 		$("h1.pomodoroTimerTracker").css({
-			"display" : "block"
+			"display": "block"
 		});
 
 		pomodoroTimer("pomodoroLap");
-	}else{
+	} else {
 		pomodoroTimer("stop");
 	}
 })
 
 /* POMODORO TIMER */
+
+
+
+
+
+
+
 
 /* SCHEDULE */
 $(document).ready((event) => {
@@ -678,14 +686,34 @@ $(document).ready((event) => {
 
 	// Make an array with objects that contain the value and the id for every <option></option> tag that must be added in the <select></select> element.
 
-	let SELECT_DAYS = [
-		{id : "Monday" , value: "Monday"},
-		{id : "Tuesday", value: "Tuesday"},
-		{id : "Wednesday", value: "Wednesday"},
-		{id : "Thursday", value : "Thursday"},
-		{id : "Friday", value : "Friday"},
-		{id : "Saturday", value : "Saturday"},
-		{id : "Sunday", value : "Sunday"}
+	let SELECT_DAYS = [{
+			id: "Monday",
+			value: "Monday"
+		},
+		{
+			id: "Tuesday",
+			value: "Tuesday"
+		},
+		{
+			id: "Wednesday",
+			value: "Wednesday"
+		},
+		{
+			id: "Thursday",
+			value: "Thursday"
+		},
+		{
+			id: "Friday",
+			value: "Friday"
+		},
+		{
+			id: "Saturday",
+			value: "Saturday"
+		},
+		{
+			id: "Sunday",
+			value: "Sunday"
+		}
 	];
 
 	// For every object in the array, add it into the <select></select> element
@@ -704,7 +732,7 @@ $(document).ready((event) => {
 
 	// BUILD THE DAY <select></select> tag and add the OPTIONS to it //
 
-	// Build the button that will add everything to the schedule // 
+	// Build the button that will add everything to the schedule //
 
 	let INSERT_BUTTON = document.createElement("button");
 
@@ -720,7 +748,7 @@ $(document).ready((event) => {
 
 			let timeEnd = $("input#schedule_detailsTimeEnd").val().trim();
 
-			try{
+			try {
 				let timeStart_Hour = eval(timeStart.split(":")[0]);
 				let timeStart_Minute = eval(timeStart.split(":")[1]);
 
@@ -728,29 +756,30 @@ $(document).ready((event) => {
 				let timeEnd_Minute = eval(timeEnd.split(":")[1]);
 
 				// If everything worked, use the add function to add everything from the inputs to the section
-				if(timeStart_Hour >= 0 && timeStart_Hour <= 24 && timeEnd_Hour >= 0 && timeEnd_Hour <= 24 && timeStart_Minute >= 0 && timeStart_Minute <= 59 && timeEnd_Minute >= 0 && timeEnd_Minute <= 59){
+				if (timeStart_Hour >= 0 && timeStart_Hour <= 24 && timeEnd_Hour >= 0 && timeEnd_Hour <= 24 && timeStart_Minute >= 0 && timeStart_Minute <= 59 && timeEnd_Minute >= 0 && timeEnd_Minute <= 59) {
 					SCHEDULE_InsertScheduleTimeDetails_ToMainSection();
 				}
-			}catch($ERROR){
+			} catch ($ERROR) {
 				console.log($ERROR);
 			};
 		},
 		false // dispatch event in the bubbling phase not in the capturing phase
 	)
 
-	INSERT_BUTTON.textContent = "Insert in schedule";  
+	INSERT_BUTTON.textContent = "Insert in schedule";
 
-	// Add button to the section 
+	// Add button to the section
 	DETAILS_SECTION.appendChild(INSERT_BUTTON);
-	// Build the button that will add everything to the schedule // 
+	// Build the button that will add everything to the schedule //
 });
-function SCHEDULE_InsertScheduleTimeDetails_ToMainSection(){
+
+function SCHEDULE_InsertScheduleTimeDetails_ToMainSection() {
 	// Take in all the inputs and create a new div that will be added in the section#schedule_detailsDAYS in some day.
 	let DIV_FOR_SCHEDULE_DAY = document.createElement("div");
 	DIV_FOR_SCHEDULE_DAY.setAttribute("id", "DIV_FOR_SCHEDULE_DAY");
 
 	let DAY_TITLE_WITH_CHECKBOX = document.createElement("div");
-	DAY_TITLE_WITH_CHECKBOX.setAttribute("id" , "DAY_TITLE_WITH_CHECKBOX");
+	DAY_TITLE_WITH_CHECKBOX.setAttribute("id", "DAY_TITLE_WITH_CHECKBOX");
 
 	let DETAILS_WITHOUT_TEXTBOX = document.createElement("div");
 
@@ -789,15 +818,14 @@ function SCHEDULE_InsertScheduleTimeDetails_ToMainSection(){
 	DELETE_BUTTON.addEventListener(
 		"click",
 		(event) => {
-			try{
+			try {
 				let title = selectElement.options[selectElement.selectedIndex].value;
 				document.querySelector(`section#schedule_detailsDAYS div#${title}Schedule`).removeChild(DIV_FOR_SCHEDULE_DAY);
-			}
-			catch($ERROR){
+			} catch ($ERROR) {
 				console.log();
 			}
 		},
-		false // dispatch event in the bubbling phase not in the capturing phase 
+		false // dispatch event in the bubbling phase not in the capturing phase
 	);
 
 	// Add the button to the details section
@@ -807,7 +835,7 @@ function SCHEDULE_InsertScheduleTimeDetails_ToMainSection(){
 	DIV_FOR_SCHEDULE_DAY.appendChild(DETAILS_WITHOUT_TEXTBOX);
 
 	// Add the textbox data if it's given
-	if($("textarea#schedule_textareaDetails").val().trim() !== ""){
+	if ($("textarea#schedule_textareaDetails").val().trim() !== "") {
 		let TEXTBOX_ELEMENT = document.createElement("div");
 
 		let TEXTBOX_TEXT = $("textarea#schedule_textareaDetails").val().trim();
@@ -820,7 +848,7 @@ function SCHEDULE_InsertScheduleTimeDetails_ToMainSection(){
 
 		DIV_FOR_SCHEDULE_DAY.appendChild(TEXTBOX_ELEMENT);
 		DIV_FOR_SCHEDULE_DAY.style.gridTemplateColumns = "repeat(2, 1fr)";
-	}else{
+	} else {
 		DIV_FOR_SCHEDULE_DAY.style.gridTemplateColumns = "1fr";
 	}
 
@@ -837,33 +865,33 @@ function SCHEDULE_InsertScheduleTimeDetails_ToMainSection(){
 
 	let elementFound = false;
 
-	for(let i = 0 ; i < daySections.length; i++){
+	for (let i = 0; i < daySections.length; i++) {
 		let timeElement = daySections[i].querySelector("p.dayScheduleSection_TimeParagraph").textContent.split("/")[0].split(":");
 
-		if((eval(TIME_BEGIN[0]) < eval(timeElement[0])) || ( eval(TIME_BEGIN[0]) === eval(timeElement[0]) && eval(TIME_BEGIN[1]) < eval(timeElement[1]) )){
+		if ((eval(TIME_BEGIN[0]) < eval(timeElement[0])) || (eval(TIME_BEGIN[0]) === eval(timeElement[0]) && eval(TIME_BEGIN[1]) < eval(timeElement[1]))) {
 			document.querySelector(`section#schedule_detailsDAYS div#${DAY_INSERT}Schedule`).insertBefore(DIV_FOR_SCHEDULE_DAY, daySections[i]);
 			elementFound = true;
 			break;
-		}else{
+		} else {
 			continue;
 		}
 	}
 
-	if(!elementFound){
+	if (!elementFound) {
 		document.querySelector(`section#schedule_detailsDAYS div#${DAY_INSERT}Schedule`).appendChild(DIV_FOR_SCHEDULE_DAY);
 	};
 
-	// INSERT DIV_FOR_SCHEDULE_DAY // 
+	// INSERT DIV_FOR_SCHEDULE_DAY //
 }
 /* SCHEDULE */
 /* LOGIN */
 
-// REGISTER // 
-class POST_REQUESTS{
-	constructor(url){
+// REGISTER //
+class POST_REQUESTS {
+	constructor(url) {
 		this.url = url;
 	}
-	normalPostRequest(requestSendObject, requestHeader){
+	normalPostRequest(requestSendObject, requestHeader) {
 		this.request = new XMLHttpRequest();
 
 		this.requestSendObject = requestSendObject;
@@ -874,50 +902,50 @@ class POST_REQUESTS{
 		this.request.addEventListener(
 			"load",
 			(event) => {
-				if(self.request.readyState === 4 && self.request.status === 200){
+				if (self.request.readyState === 4 && self.request.status === 200) {
 					console.log("Request sent with the normal post request.");
 					console.log(typeof self.request.response === "object" ? self.request.response : JSON.parse(self.request.response));
 				}
 			},
 			false // dispatch event in the bubbling phase not in the capturing phase
 		)
-		
+
 		this.request.open("POST", this.url);
 		this.request.setRequestHeader("Content-Type", this.requestHeader);
 		this.request.send(this.requestSendObject);
 	}
-	fetchAPI_Post_Request(requestSendObject, requestHeaders){
+	fetchAPI_Post_Request(requestSendObject, requestHeaders) {
 		this.requestSendObject = requestSendObject;
 		this.requestHeaders = requestHeaders;
 
 		var self = this;
-		
+
 		fetch(this.url, {
-			method : "POST",
-			headers : self.requestHeaders,
-			body : self.requestSendObject
-		}).then((response) => {
-			console.log(response.json())
-		}).then((data) => {
-			console.log("Request sent using the fetch API.");	
-		})
-		.catch((jqXHR, errorMessage, error) => {
-			console.log(jqXHR);
-			console.log(errorMessage);
-			console.log(error);
-		});
+				method: "POST",
+				headers: self.requestHeaders,
+				body: self.requestSendObject
+			}).then((response) => {
+				console.log(response.json())
+			}).then((data) => {
+				console.log("Request sent using the fetch API.");
+			})
+			.catch((jqXHR, errorMessage, error) => {
+				console.log(jqXHR);
+				console.log(errorMessage);
+				console.log(error);
+			});
 	}
-	jQueryAPI_Post_Request(requestSendObject, requestHeaders){
+	jQueryAPI_Post_Request(requestSendObject, requestHeaders) {
 		this.requestSendObject = requestSendObject;
 		this.requestHeaders = requestHeaders;
 
 		var self = this;
 
 		$.ajax({
-			url : self.url,
-			dataType : "json",
-			data : self.requestSendObject,
-			headers : self.requestHeaders
+			url: self.url,
+			dataType: "json",
+			data: self.requestSendObject,
+			headers: self.requestHeaders
 		}).done((response) => {
 			console.log("Request sent using the jQuery API");
 			console.log(typeof response === "object" ? response : JSON.parse(response));
@@ -928,21 +956,21 @@ class POST_REQUESTS{
 		});
 	}
 }
-$("button#register_BUTTON").click(function(event){
+$("button#register_BUTTON").click(function (event) {
 	let username = $("input#username").val().trim();
 	let password = $("input#password").val().trim();
 
-	// Create the send object that will be used for the post request. The first key is the  // login // and it will have the value of the // username // and for the // node_id // we will assign the // password // value to it 
+	// Create the send object that will be used for the post request. The first key is the  // login // and it will have the value of the // username // and for the // node_id // we will assign the // password // value to it
 	let sendObject = {
-		login : username,
-		node_id : password
+		login: username,
+		node_id: password
 	};
 
 	// normalPostRequest(requestSendObject, requestHeader)
 	// fetchAPI_Post_Request(requestSendObject, requestHeaders)
 	// jQueryAPI_Post_Request(requestSendObject, requestHeaders)
-	let POST_REQUEST_CLASS = new POST_REQUESTS("scripts/users.json");	
-	
+	let POST_REQUEST_CLASS = new POST_REQUESTS("scripts/users.json");
+
 	// POST_REQUEST_CLASS.normalPostRequest(sendObject, "application/json");
 	/*
 	POST_REQUEST_CLASS.fetchAPI_Post_Request(sendObject, {
@@ -951,19 +979,19 @@ $("button#register_BUTTON").click(function(event){
 	});
 	*/
 	POST_REQUEST_CLASS.jQueryAPI_Post_Request(sendObject, {
-		"Accept" : "text/json",
-		"Content-Type" : "application/json"
+		"Accept": "text/json",
+		"Content-Type": "application/json"
 	});
 });
-// REGISTER // 
+// REGISTER //
 
 // LOGIN //
 
-class GET_REQUESTS{
-	constructor(url){
+class GET_REQUESTS {
+	constructor(url) {
 		this.url = url;
 	}
-	normalXHR_GET_REQUEST(requestHeader){
+	normalXHR_GET_REQUEST(requestHeader) {
 		this.request = new XMLHttpRequest();
 
 		this.requestHeader = requestHeader;
@@ -972,19 +1000,19 @@ class GET_REQUESTS{
 		this.request.addEventListener(
 			"load",
 			(event) => {
-				if(self.request.readyState === 4 && self.request.status === 200){
+				if (self.request.readyState === 4 && self.request.status === 200) {
 					console.log("GET REQUEST loaded. | Normal XHR Request |");
 					console.log(typeof self.request.response === "object" ? self.request.response : JSON.parse(self.request.response));
 				}
 			},
 			false // dispatch event in the bubbling phase not in the capturing phase
-		)		
+		)
 
 		this.request.open("GET", this.url);
 		this.request.setRequestHeader("Accept", this.requestHeader);
 		this.request.send();
 	}
-	fetchAPI_XHR_GET_REQUEST(){
+	fetchAPI_XHR_GET_REQUEST() {
 		var self = this;
 
 		fetch(this.url).then((response) => response.json()).then((data) => {
@@ -996,11 +1024,11 @@ class GET_REQUESTS{
 			console.log(error);
 		})
 	}
-	jQueryAPI_XHR_GET_REQUEST(){
+	jQueryAPI_XHR_GET_REQUEST() {
 		$.ajax({
-			url : this.url,
-			dataType : "json",
-			method : "GET"
+			url: this.url,
+			dataType: "json",
+			method: "GET"
 		}).done((data) => {
 			console.log("GET REQUEST loaded. | jQuery API XHR Get Request | ");
 			console.log(data);
@@ -1022,13 +1050,13 @@ $("button#logIn_BUTTON").click((event) => {
 	REQUEST.jQueryAPI_XHR_GET_REQUEST();
 })
 
-function LOGIN(users){
+function LOGIN(users) {
 	let username = $("input#username").val().trim();
 	let password = $("input#password").val().trim();
 
 	let USER = [];
-	for(let i = 0 ; i < users.length; i++){
-		if(users[i].login === username && users[i].node_id === password){
+	for (let i = 0; i < users.length; i++) {
+		if (users[i].login === username && users[i].node_id === password) {
 			USER = users[i]
 			break;
 		}
@@ -1037,7 +1065,7 @@ function LOGIN(users){
 	console.log(USER.length);
 	console.log(USER.length === 0);
 
-	if(USER.length === 0){
+	if (USER.length === 0) {
 		let errorLogIn_Label = document.createElement("p");
 		errorLogIn_Label.textContent = "The username or the password is wrong";
 
@@ -1061,13 +1089,14 @@ function LOGIN(users){
 			},
 			5000
 		)
-	}else{
+	} else {
 		createUserDisplay(USER);
 	}
 }
-function createUserDisplay(USER){
+
+function createUserDisplay(USER) {
 	$("section#loginSection").css({
-		"display" : "none"
+		"display": "none"
 	});
 
 	// Create the main login section
@@ -1087,7 +1116,7 @@ function createUserDisplay(USER){
 
 	let userDetails = document.createElement("div");
 	Object.entries(USER).map((USER_ENTRY) => {
-		if(USER_ENTRY[0] !== "avatar_url"){
+		if (USER_ENTRY[0] !== "avatar_url") {
 			// If it is not the picture , add it to a paragraph. Afterwards add the paragraph to the section
 			let userDetailParagraph = document.createElement("p");
 			userDetailParagraph.textContent = `${USER_ENTRY[0]} : ${USER_ENTRY[1]}`;
@@ -1097,7 +1126,7 @@ function createUserDisplay(USER){
 	});
 
 	// Create the logout button
-	
+
 	let logoutButton = document.createElement("button");
 	logoutButton.textContent = "Logout";
 	logoutButton.setAttribute("class", "loginSection_logoutButton");
@@ -1112,7 +1141,7 @@ function createUserDisplay(USER){
 		"click",
 		(event) => {
 			$("section#loginSection").css({
-				"display" : "grid" 
+				"display": "grid"
 			});
 			document.querySelector("section#login_mainSection").removeChild(USER_DISPLAY);
 		},
@@ -1125,7 +1154,7 @@ function createUserDisplay(USER){
 	USER_DISPLAY.appendChild(logoutButton);
 
 	// Add the user display to the login main section
-	$("section#login_mainSection").append(USER_DISPLAY);	
+	$("section#login_mainSection").append(USER_DISPLAY);
 }
 // LOGIN //
 
