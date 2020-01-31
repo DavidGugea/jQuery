@@ -75,7 +75,7 @@ document.querySelector("button#start_pomodoroButtons").addEventListener(
 	"breaks_timeEnd_EVENT",
 	(event) => {
 		let newAudio = new Audio(event.detail.soundPath);
-		newAudio.play()
+		newAudio.play();
 	},
 	false // dispatch event in the bubbling phase not in the capturing phase
 );
@@ -512,6 +512,9 @@ function pomodoroTimer(timerTYPE) {
 	var MAIN_INTERVAL = window.setInterval(() => {
 		console.log(`Inside Interval, lap: ${lapsCounter_Tracker}`);
 		WAIT_TIME = new Date(WAIT_TIME.getTime() - 1000);
+
+		document.title = `Study Project | ${WAIT_TIME.getMinutes()} : ${WAIT_TIME.getSeconds()}`;
+
 		if (!check) {
 			window.clearInterval(MAIN_INTERVAL);
 		} else {
