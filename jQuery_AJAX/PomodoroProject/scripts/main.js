@@ -395,11 +395,15 @@ function DISPLAY_DETAILS(type, title, WAIT_TIME_DETAILS) {
 };
 
 var title;
+var run = false;
 
 function pomodoroTimer(timerTYPE) {
 	let WAIT_TIME = new Date();
 	let display;
 	let check = true;
+	
+	run=true;
+
 	let lapStop;
 
 	// Check the timer type and set the values for the specific timer type. For each case check for .val() if it returns a number or not. If there is a problem with the input, change the text to show it, after 5 seconds, set its display to none and text to nothing(""), for each case.
@@ -539,44 +543,47 @@ function pomodoroTimer(timerTYPE) {
 		// Reset button //
 
 		$("button#reset_pomodoroButtons").click((event) => {
-			// When the users clicks on the reset button, set the lapsCounter to 0 and set the minutes time to the input one, reset it, and set the seconds to 0. RESET everything. Clear out the details. //
+			console.log(`RESET BUTTON CLICKED. RUN VARIABLE : ${run}`);
+			if(run){
+				// When the users clicks on the reset button, set the lapsCounter to 0 and set the minutes time to the input one, reset it, and set the seconds to 0. RESET everything. Clear out the details. //
 
-			// Reset laps counter tracker
-			lapsCounter_Tracker = 0;
+				// Reset laps counter tracker
+				lapsCounter_Tracker = 0;
 
-			display.removeAttr("active");
+				display.removeAttr("active");
 
-			// Reset dispays
-			display = $("h1.pomodoroTimerTracker");
-			let userInputLapTimeWait_Input = eval($("input#pomodoroLapTimeWait").val()) || 25;
+				// Reset dispays
+				display = $("h1.pomodoroTimerTracker");
+				let userInputLapTimeWait_Input = eval($("input#pomodoroLapTimeWait").val()) || 25;
 
-			display.css({
-				"display": "block"
-			});
-			$("h1.shortBreakTimerTracker,h1.bigBreakTimerTracker").css({
-				"display": "none"
-			});
+				display.css({
+					"display": "block"
+				});
+				$("h1.shortBreakTimerTracker,h1.bigBreakTimerTracker").css({
+					"display": "none"
+				});
 
-			display.attr("active", "true");
+				display.attr("active", "true");
 
-			WAIT_TIME.setTime(userInputLapTimeWait_Input * 60 * 1000);
+				WAIT_TIME.setTime(userInputLapTimeWait_Input * 60 * 1000);
 
-			// Lap Stop
-			lapStop = eval($("input#lapsTillBigBreak").val());
+				// Lap Stop
+				lapStop = eval($("input#lapsTillBigBreak").val());
 
-			// Change the timer type
-			timerTYPE = "pomodoroLap";
+				// Change the timer type
+				timerTYPE = "pomodoroLap";
 
-			// Stop display
-			let stopDisplay = $("h1[time_stop = 'true']");
+				// Stop display
+				let stopDisplay = $("h1[time_stop = 'true']");
 
-			stopDisplay.removeAttr("time_stop");
-			stopDisplay.removeAttr("time");
-			stopDisplay.removeAttr("type");
+				stopDisplay.removeAttr("time_stop");
+				stopDisplay.removeAttr("time");
+				stopDisplay.removeAttr("type");
 
 
-			// Clear details
-			$("section#pomodoroDetails_DATA").text("");
+				// Clear details
+				$("section#pomodoroDetails_DATA").text("");
+			}
 		});
 
 		// Reset button //
@@ -585,6 +592,8 @@ function pomodoroTimer(timerTYPE) {
 
 
 		$("button#stop_pomodoroButtons").click((event) => {
+			run=false;
+			
 			let newDate = new Date();
 			console.log("NEW DATE pomodoroDetailsConfiguration set : ");
 			console.log(newDate, newDate.getTime());
@@ -661,7 +670,7 @@ function pomodoroTimer(timerTYPE) {
 				lapsCounter_Tracker = 0;
 			}
 		}
-	}, 1000)
+	}, 100)
 }
 
 $("button#start_pomodoroButtons").click((event) => {
