@@ -661,7 +661,7 @@ function pomodoroTimer(timerTYPE) {
 				lapsCounter_Tracker = 0;
 			}
 		}
-	}, 100)
+	}, 1000)
 }
 
 $("button#start_pomodoroButtons").click((event) => {
