@@ -157,6 +157,9 @@ function displayError(display, queryDisplay, querySetNone_1, querySetNone_2) {
 };
 
 function increaseTime_On_PomodoroDetailsSection(title, timerType) {
+	title = title.replace(/[^\w]*/g, "");
+	console.log(title);
+
 	console.log(`timerType : ${timerType}`);
 	// TIMER TYPES : pomodoroLap // shortBreakTime // bigBreakTime // stop
 
@@ -227,6 +230,7 @@ function increaseTime_On_PomodoroDetailsSection(title, timerType) {
 }
 
 function DISPLAY_DETAILS(type, title, WAIT_TIME_DETAILS) {
+	title = title.replace(/[^\w]*/g, "");
 	if (type === "pomodoroLap" && title.trim() !== "") {
 		//console.log(`DISPLAY_DATE Fuction dispatched. Title used : ${title}`);
 
@@ -593,7 +597,7 @@ function pomodoroTimer(timerTYPE) {
 
 		$("button#stop_pomodoroButtons").click((event) => {
 			run=false;
-			
+
 			let newDate = new Date();
 			console.log("NEW DATE pomodoroDetailsConfiguration set : ");
 			console.log(newDate, newDate.getTime());
@@ -670,23 +674,24 @@ function pomodoroTimer(timerTYPE) {
 				lapsCounter_Tracker = 0;
 			}
 		}
-	}, 100)
+	}, 1000)
 }
 
 $("button#start_pomodoroButtons").click((event) => {
 	//
-
-	if ($("h1.pomodoroTimerTracker").css("display") === "none" && $("h1.shortBreakTimerTracker").css("display") === "none" && $("h1.bigBreakTimerTracker").css("display") === "none") {
-		$("h1.shortBreakTimerTracker, h1.bigBreakTimerTracker").css({
-			"display": "none"
-		});
-		$("h1.pomodoroTimerTracker").css({
-			"display": "block"
-		});
-
-		pomodoroTimer("pomodoroLap");
-	} else {
-		pomodoroTimer("stop");
+	if(!run){
+		if ($("h1.pomodoroTimerTracker").css("display") === "none" && $("h1.shortBreakTimerTracker").css("display") === "none" && $("h1.bigBreakTimerTracker").css("display") === "none") {
+			$("h1.shortBreakTimerTracker, h1.bigBreakTimerTracker").css({
+				"display": "none"
+			});
+			$("h1.pomodoroTimerTracker").css({
+				"display": "block"
+			});
+	
+			pomodoroTimer("pomodoroLap");
+		} else {
+			pomodoroTimer("stop");
+		}
 	}
 })
 
@@ -847,6 +852,7 @@ function SCHEDULE_InsertScheduleTimeDetails_ToMainSection() {
 		(event) => {
 			try {
 				let title = selectElement.options[selectElement.selectedIndex].value;
+				title.replace(".", "");
 				document.querySelector(`section#schedule_detailsDAYS div#${title}Schedule`).removeChild(DIV_FOR_SCHEDULE_DAY);
 			} catch ($ERROR) {
 				console.log();
